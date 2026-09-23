@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-tolf-ui="smartdns">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>TOLF DNS</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=plain-route-1">
+  <link rel="stylesheet" href="css/tolf-buttons.css?v=1">
 </head>
 <body>
   <main class="page">
@@ -31,13 +32,13 @@
           <h2 data-t="myDns">My Smart DNS</h2>
           <p data-t="myDnsText">Add devices that should use your personal encrypted TOLF DNS endpoint.</p>
         </div>
-        <button id="addDeviceButton" class="secondary-button" type="button" data-t="setupDevice">Set up Smart DNS on a device</button>
+        <button id="addDeviceButton" class="secondary" type="button" data-t="setupDevice">Set up Smart DNS on a device</button>
       </div>
       <div id="deviceForm" class="device-form hidden">
         <label for="deviceName" data-t="deviceName">Device name</label>
         <div class="check-row">
           <input id="deviceName" type="text" maxlength="64" autocomplete="off" placeholder="iPad">
-          <button id="createDeviceButton" type="button" data-t="create">Create</button>
+          <button id="createDeviceButton" class="primary" type="button" data-t="create">Create</button>
         </div>
       </div>
       <div id="deviceMessage" class="message hidden"></div>
@@ -58,7 +59,7 @@
           spellcheck="false"
           placeholder="example.com"
         >
-        <button id="checkButton" type="button" data-t="checkRoute">Check route</button>
+        <button id="checkButton" class="primary" type="button" data-t="checkRoute">Check route</button>
       </div>
 
       <div id="message" class="message hidden"></div>
@@ -69,15 +70,16 @@
         <p id="resultDescription" class="result-description"></p>
 
         <div class="simple-summary">
-          <div><div class="caption" data-t="currentRoute">Current route</div><div id="effectiveRoute" class="route-name">—</div></div>
-          <div><div class="caption" data-t="status">Status</div><div id="routeStatus" class="route-state">—</div></div>
+          <div><div class="caption" data-t="dnsUsed">DNS used</div><div id="effectiveRoute" class="route-name">—</div></div>
+          <div><div class="caption" data-t="availability">Availability</div><div id="routeStatus" class="route-state">—</div></div>
         </div>
 
         <details class="technical-details">
-          <summary data-t="details">Details</summary>
-          <div class="route-summary">
-            <div><div class="caption" data-t="policyRoute">Policy route</div><div id="policyRoute">—</div></div>
-            <div><div class="caption" data-t="policy">Policy</div><div id="policySource">—</div></div>
+          <summary data-t="details">Why this route?</summary>
+          <p id="policyExplanation" class="policy-explanation"></p>
+          <div class="hidden" aria-hidden="true">
+            <span id="policyRoute"></span>
+            <span id="policySource"></span>
           </div>
           <div id="analysisBlock" class="analysis hidden">
             <div class="divider"></div><div class="caption" data-t="analysis">Analysis</div><div id="analysisText"></div>
