@@ -15,8 +15,9 @@
     </header>
 
     <section class="intro">
-      <h1>Smart DNS</h1>
-      <p>Check how TOLF DNS currently routes a domain.</p>
+      <p class="eyebrow">TOLF Smart DNS</p>
+      <h1>DNS that chooses the route.</h1>
+      <p>TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.</p>
     </section>
 
     <section id="checkCard" class="card hidden">
@@ -38,36 +39,28 @@
       <div id="message" class="message hidden"></div>
 
       <div id="result" class="result hidden">
-        <div class="route-summary">
-          <div>
-            <div class="caption">Policy route</div>
-            <div id="policyRoute" class="route-name">—</div>
-          </div>
-          <div>
-            <div class="caption">Effective route</div>
-            <div id="effectiveRoute" class="route-name">—</div>
-          </div>
-          <div>
-            <div class="caption">Policy</div>
-            <div id="policySource">—</div>
-          </div>
-          <div>
-            <div class="caption">Status</div>
-            <div id="routeStatus">—</div>
-          </div>
+        <div id="resultDomain" class="result-domain"></div>
+        <h2 id="resultTitle" class="result-title"></h2>
+        <p id="resultDescription" class="result-description"></p>
+
+        <div class="simple-summary">
+          <div><div class="caption">Current route</div><div id="effectiveRoute" class="route-name">—</div></div>
+          <div><div class="caption">Status</div><div id="routeStatus" class="route-state">—</div></div>
         </div>
 
-        <div id="analysisBlock" class="analysis hidden">
-          <div class="divider"></div>
-          <div class="caption">Analysis</div>
-          <div id="analysisText"></div>
-        </div>
-
-        <div id="measurementsBlock" class="measurements hidden">
-          <div class="divider"></div>
-          <div class="caption">Latest measurements</div>
-          <div id="measurements"></div>
-        </div>
+        <details class="technical-details">
+          <summary>Details</summary>
+          <div class="route-summary">
+            <div><div class="caption">Policy route</div><div id="policyRoute">—</div></div>
+            <div><div class="caption">Policy</div><div id="policySource">—</div></div>
+          </div>
+          <div id="analysisBlock" class="analysis hidden">
+            <div class="divider"></div><div class="caption">Analysis</div><div id="analysisText"></div>
+          </div>
+          <div id="measurementsBlock" class="measurements hidden">
+            <div class="divider"></div><div class="caption">Latest measurements</div><div id="measurements"></div>
+          </div>
+        </details>
       </div>
     </section>
 

@@ -3,6 +3,9 @@ const domainInput = document.getElementById("domain");
 const checkButton = document.getElementById("checkButton");
 const message = document.getElementById("message");
 const result = document.getElementById("result");
+const resultDomain = document.getElementById("resultDomain");
+const resultTitle = document.getElementById("resultTitle");
+const resultDescription = document.getElementById("resultDescription");
 const policyRoute = document.getElementById("policyRoute");
 const effectiveRoute = document.getElementById("effectiveRoute");
 const policySource = document.getElementById("policySource");
@@ -35,6 +38,22 @@ function formatMs(value) {
 function render(data) {
   hideMessage();
 
+  resultDomain.textContent = data.domain || domainInput.value.trim().toLowerCase();
+
+  if (data.fallbackActive) {
+    resultTitle.textContent = "TOLF switched to a fallback route";
+    resultDescription.textContent =
+      "The preferred route is currently unavailable, so TOLF is using a safe fallback.";
+  } else if (data.policySource === "default") {
+    resultTitle.textContent = "Standard DNS route is being used";
+    resultDescription.textContent =
+      "TOLF has no special routing rule for this domain. It is using the normal DNS path.";
+  } else {
+    resultTitle.textContent = "TOLF is using a measured route";
+    resultDescription.textContent =
+      "Repeated measurements produced a special routing rule for this domain.";
+  }
+
   policyRoute.textContent =
     routeNames[data.policyRoute] || data.policyRoute || "—";
 
@@ -64,11 +83,15 @@ function render(data) {
   if (data.analysis) {
     const a = data.analysis;
 
+    const recommendation =
+      a.recommendedRoute === "no-override"
+        ? "no routing change recommended"
+        : `recommendation: ${routeNames[a.recommendedRoute] || a.recommendedRoute}`;
+
     analysisText.textContent =
-      `${a.samples} samples · recommendation: ` +
-      `${routeNames[a.recommendedRoute] || a.recommendedRoute}` +
+      `${a.samples} samples · ${recommendation}` +
       (typeof a.gainVsSecondPercent === "number"
-        ? ` · gain ${a.gainVsSecondPercent.toFixed(1)}%`
+        ? ` · measured advantage ${a.gainVsSecondPercent.toFixed(1)}%`
         : "");
 
     analysisBlock.classList.remove("hidden");
