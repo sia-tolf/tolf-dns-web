@@ -2,8 +2,10 @@ const domainInput = document.getElementById("domain");
 const checkButton = document.getElementById("checkButton");
 const message = document.getElementById("message");
 const result = document.getElementById("result");
-const activeRoute = document.getElementById("activeRoute");
+const policyRoute = document.getElementById("policyRoute");
+const effectiveRoute = document.getElementById("effectiveRoute");
 const policySource = document.getElementById("policySource");
+const routeStatus = document.getElementById("routeStatus");
 const analysisBlock = document.getElementById("analysisBlock");
 const analysisText = document.getElementById("analysisText");
 const measurementsBlock = document.getElementById("measurementsBlock");
@@ -32,8 +34,23 @@ function formatMs(value) {
 function render(data) {
   hideMessage();
 
-  activeRoute.textContent =
-    routeNames[data.activeRoute] || data.activeRoute;
+  policyRoute.textContent =
+    routeNames[data.policyRoute] || data.policyRoute || "—";
+
+  effectiveRoute.textContent =
+    data.effectiveRoute
+      ? (routeNames[data.effectiveRoute] || data.effectiveRoute)
+      : "Unknown";
+
+  if (data.fallbackActive) {
+    routeStatus.textContent = "Fallback active";
+  } else if (data.healthStatus === "available") {
+    routeStatus.textContent = "Normal";
+  } else if (data.healthStatus === "unavailable") {
+    routeStatus.textContent = "Unavailable";
+  } else {
+    routeStatus.textContent = "Health unknown";
+  }
 
   if (data.policySource === "default") {
     policySource.textContent = "Default";
