@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>TOLF DNS</title>
-  <link rel="stylesheet" href="css/styles.css?v=plain-route-1">
+  <link rel="stylesheet" href="css/styles.css?v=live-check-1">
   <link rel="stylesheet" href="css/tolf-buttons.css?v=1">
 </head>
 <body>
   <main class="page">
     <header class="header">
-      <a class="brand" href="https://tolf.is/">TOLF</a>
+      <a class="brand" href="https://tolf.is/" aria-label="TOLF home"><img src="tolf-logo-star.svg" alt="" aria-hidden="true"><span>TOLF</span></a>
       <div class="product">Smart DNS</div>
-      <div class="language" aria-label="Language">
+      <div class="language tolf-language" aria-label="Language">
         <button data-lang="en" type="button">EN</button>
         <button data-lang="ru" type="button">RU</button>
         <button data-lang="lv" type="button">LV</button>
@@ -71,8 +71,6 @@
 
       <div id="result" class="result hidden">
         <div id="resultDomain" class="result-domain"></div>
-        <h2 id="resultTitle" class="result-title"></h2>
-        <p id="resultDescription" class="result-description"></p>
 
         <div class="dns-answer-grid">
           <div class="answer-wide"><div class="caption" data-t="addresses">Returned address</div><div id="answerAddresses" class="answer-value">—</div></div>
@@ -82,6 +80,11 @@
           <div><div class="caption" data-t="node">TOLF node</div><div id="answerNode" class="answer-value">—</div></div>
           <div><div class="caption" data-t="dnsUsed">DNS route</div><div id="effectiveRoute" class="answer-value">—</div></div>
           <div><div class="caption" data-t="availability">Result</div><div id="routeStatus" class="answer-value">—</div></div>
+        </div>
+
+        <div class="route-explanation">
+          <h3 id="resultTitle" class="result-title"></h3>
+          <p id="resultDescription" class="result-description"></p>
         </div>
 
         <details class="technical-details">
@@ -105,7 +108,7 @@
   </main>
 
   <script src="js/api.js"></script>
-  <script src="js/i18n.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/i18n.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>

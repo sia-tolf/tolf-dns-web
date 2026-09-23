@@ -53,14 +53,7 @@ function formatMs(value) {
   return typeof value === "number" ? `${value.toFixed(1)} ms` : "—";
 }
 
-function resolverForRoute(route) {
-  if (route === "russia") return t("resolverYandex");
-  if (route === "quad9_ecs") return t("resolverQuad9Ecs");
-  if (route === "local") return t("resolverQuad9");
-  return "—";
-}
-
-function measurementForRoute(data, route) {
+ function measurementForRoute(data, route) {
   const items = Array.isArray(data.measurements) ? data.measurements : [];
   return items.find(item => item.route === route) || null;
 }
@@ -91,12 +84,22 @@ function render(data) {
   effectiveRoute.textContent =
     data.effectiveRoute ? routeLabel(data.effectiveRoute) : "—";
 
+  const live = data.lookup || null;
   const activeMeasurement = measurementForRoute(data, data.effectiveRoute);
-  answerAddresses.textContent = activeMeasurement?.bestIp || "—";
-  answerDnsTime.textContent = formatMs(activeMeasurement?.dnsLatencyMs);
-  answerResolver.textContent = resolverForRoute(data.effectiveRoute);
-  answerProtocol.textContent = "DoT";
-  answerNode.textContent = data.node || "Riga";
+
+  const addresses = Array.isArray(live?.addresses)
+    ? live.addresses
+    : (activeMeasurement?.bestIp ? [activeMeasurement.bestIp] : []);
+
+  answerAddresses.textContent = addresses.length ? addresses.join(", ") : "—";
+  answerDnsTime.textContent = formatMs(
+    typeof live?.dnsLatencyMs === "number"
+      ? live.dnsLatencyMs
+      : activeMeasurement?.dnsLatencyMs
+  );
+  answerResolver.textContent = live?.resolver || "—";
+  answerProtocol.textContent = live?.protocol || "—";
+  answerNode.textContent = live?.node || data.node || "—";
 
   if (data.fallbackActive) {
     routeStatus.textContent = t("fallback");
