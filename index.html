@@ -19,7 +19,17 @@
       <p>Check how TOLF DNS currently routes a domain.</p>
     </section>
 
-    <section class="card">
+    <section id="signedOutCard" class="card hidden">
+      <h2>Sign in to TOLF</h2>
+      <p class="card-description">
+        Sign in to use TOLF Smart DNS tools.
+      </p>
+      <button id="signInButton" type="button">
+        Sign in with Passkey
+      </button>
+    </section>
+
+    <section id="checkCard" class="card hidden">
       <label for="domain">Domain</label>
 
       <div class="check-row">
