@@ -256,3 +256,17 @@ html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-ra
 .dns-answer-grid .answer-wide{grid-column:1/-1;padding-left:0;border-left:0}
 .answer-value{font-size:17px;font-weight:600;overflow-wrap:anywhere}
 @media(max-width:560px){.dns-answer-grid{grid-template-columns:1fr}.dns-answer-grid .answer-wide{grid-column:auto}.dns-answer-grid>div,.dns-answer-grid>div:nth-child(even){padding:12px 0;border-left:0}.dns-answer-grid>div+div{border-top:1px solid #eeeeef}}
+
+/* Mobile polish after live iPhone review. */
+.page{padding-top:calc(24px + env(safe-area-inset-top))}
+.intro{margin-top:28px}
+@media(max-width:560px){
+  .page{padding-top:calc(16px + env(safe-area-inset-top))}
+  .header{min-height:40px}
+  .intro{margin-top:24px}
+  .intro h1{font-size:29px;line-height:1.14;letter-spacing:-.65px}
+  .intro>p{font-size:16px;line-height:1.42}
+  .section-head h2{font-size:21px}
+  .section-head p{font-size:16px}
+  html[data-tolf-ui="smartdns"] #addDeviceButton{min-height:48px;padding:10px 14px;font-size:16px;line-height:1.25}
+}
