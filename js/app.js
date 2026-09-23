@@ -1,6 +1,4 @@
-const signedOutCard = document.getElementById("signedOutCard");
 const checkCard = document.getElementById("checkCard");
-const signInButton = document.getElementById("signInButton");
 const domainInput = document.getElementById("domain");
 const checkButton = document.getElementById("checkButton");
 const message = document.getElementById("message");
@@ -133,7 +131,7 @@ async function checkDomain() {
     result.classList.add("hidden");
 
     if (error.status === 401) {
-      showSignedOut();
+      returnToTolf();
     } else {
       showMessage(error.message || "Unable to check this domain.", true);
     }
@@ -142,14 +140,12 @@ async function checkDomain() {
   }
 }
 
-function showSignedOut() {
-  checkCard.classList.add("hidden");
-  signedOutCard.classList.remove("hidden");
+function showSignedIn() {
+  checkCard.classList.remove("hidden");
 }
 
-function showSignedIn() {
-  signedOutCard.classList.add("hidden");
-  checkCard.classList.remove("hidden");
+function returnToTolf() {
+  window.location.replace("https://tolf.is/");
 }
 
 async function loadSession() {
@@ -157,13 +153,9 @@ async function loadSession() {
     await apiRequest("/me", { method: "GET" });
     showSignedIn();
   } catch {
-    showSignedOut();
+    returnToTolf();
   }
 }
-
-signInButton.addEventListener("click", () => {
-  window.location.href = "https://vpn.tolf.is/signin.html";
-});
 
 checkButton.addEventListener("click", checkDomain);
 
