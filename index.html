@@ -11,28 +11,33 @@
   <main class="page">
     <header class="header">
       <a class="brand" href="https://tolf.is/">TOLF</a>
-      <div class="product">DNS</div>
+      <div class="product">Smart DNS</div>
+      <div class="language" aria-label="Language">
+        <button data-lang="en" type="button">EN</button>
+        <button data-lang="ru" type="button">RU</button>
+        <button data-lang="lv" type="button">LV</button>
+      </div>
     </header>
 
     <section class="intro">
       <p class="eyebrow">TOLF Smart DNS</p>
-      <h1>DNS that chooses the route.</h1>
-      <p>TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.</p>
+      <h1 data-t="heroTitle">DNS that chooses the route.</h1>
+      <p data-t="heroText">TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.</p>
     </section>
 
     <section id="deviceCard" class="card hidden">
       <div class="section-head">
         <div>
-          <h2>My Smart DNS</h2>
-          <p>Add devices that should use your personal encrypted TOLF DNS endpoint.</p>
+          <h2 data-t="myDns">My Smart DNS</h2>
+          <p data-t="myDnsText">Add devices that should use your personal encrypted TOLF DNS endpoint.</p>
         </div>
-        <button id="addDeviceButton" class="secondary-button" type="button">Set up Smart DNS on a device</button>
+        <button id="addDeviceButton" class="secondary-button" type="button" data-t="setupDevice">Set up Smart DNS on a device</button>
       </div>
       <div id="deviceForm" class="device-form hidden">
-        <label for="deviceName">Device name</label>
+        <label for="deviceName" data-t="deviceName">Device name</label>
         <div class="check-row">
           <input id="deviceName" type="text" maxlength="64" autocomplete="off" placeholder="iPad">
-          <button id="createDeviceButton" type="button">Create</button>
+          <button id="createDeviceButton" type="button" data-t="create">Create</button>
         </div>
       </div>
       <div id="deviceMessage" class="message hidden"></div>
@@ -41,7 +46,7 @@
     </section>
 
     <section id="checkCard" class="card hidden">
-      <label for="domain">Domain</label>
+      <label for="domain" data-t="domain">Domain</label>
 
       <div class="check-row">
         <input
@@ -53,7 +58,7 @@
           spellcheck="false"
           placeholder="example.com"
         >
-        <button id="checkButton" type="button">Check route</button>
+        <button id="checkButton" type="button" data-t="checkRoute">Check route</button>
       </div>
 
       <div id="message" class="message hidden"></div>
@@ -64,21 +69,21 @@
         <p id="resultDescription" class="result-description"></p>
 
         <div class="simple-summary">
-          <div><div class="caption">Current route</div><div id="effectiveRoute" class="route-name">—</div></div>
-          <div><div class="caption">Status</div><div id="routeStatus" class="route-state">—</div></div>
+          <div><div class="caption" data-t="currentRoute">Current route</div><div id="effectiveRoute" class="route-name">—</div></div>
+          <div><div class="caption" data-t="status">Status</div><div id="routeStatus" class="route-state">—</div></div>
         </div>
 
         <details class="technical-details">
-          <summary>Details</summary>
+          <summary data-t="details">Details</summary>
           <div class="route-summary">
-            <div><div class="caption">Policy route</div><div id="policyRoute">—</div></div>
-            <div><div class="caption">Policy</div><div id="policySource">—</div></div>
+            <div><div class="caption" data-t="policyRoute">Policy route</div><div id="policyRoute">—</div></div>
+            <div><div class="caption" data-t="policy">Policy</div><div id="policySource">—</div></div>
           </div>
           <div id="analysisBlock" class="analysis hidden">
-            <div class="divider"></div><div class="caption">Analysis</div><div id="analysisText"></div>
+            <div class="divider"></div><div class="caption" data-t="analysis">Analysis</div><div id="analysisText"></div>
           </div>
           <div id="measurementsBlock" class="measurements hidden">
-            <div class="divider"></div><div class="caption">Latest measurements</div><div id="measurements"></div>
+            <div class="divider"></div><div class="caption" data-t="measurements">Latest measurements</div><div id="measurements"></div>
           </div>
         </details>
       </div>
@@ -90,6 +95,7 @@
   </main>
 
   <script src="js/api.js"></script>
+  <script src="js/i18n.js?v=1"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

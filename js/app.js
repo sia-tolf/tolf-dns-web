@@ -29,6 +29,9 @@ const routeNames = {
   quad9_ecs: "Quad9 ECS"
 };
 
+let lastRouteData = null;
+let lastDevicesData = null;
+
 function showMessage(text, error = false) {
   message.textContent = text;
   message.classList.toggle("error", error);
@@ -44,22 +47,23 @@ function formatMs(value) {
 }
 
 function render(data) {
+  lastRouteData = data;
   hideMessage();
 
   resultDomain.textContent = data.domain || domainInput.value.trim().toLowerCase();
 
   if (data.fallbackActive) {
-    resultTitle.textContent = "TOLF switched to a fallback route";
+    resultTitle.textContent = t("fallbackTitle");
     resultDescription.textContent =
-      "The preferred route is currently unavailable, so TOLF is using a safe fallback.";
+      t("fallbackText");
   } else if (data.policySource === "default") {
-    resultTitle.textContent = "Standard DNS route is being used";
+    resultTitle.textContent = t("standardTitle");
     resultDescription.textContent =
-      "TOLF has no special routing rule for this domain. It is using the normal DNS path.";
+      t("standardText");
   } else {
-    resultTitle.textContent = "TOLF is using a measured route";
+    resultTitle.textContent = t("measuredTitle");
     resultDescription.textContent =
-      "Repeated measurements produced a special routing rule for this domain.";
+      t("measuredText");
   }
 
   policyRoute.textContent =
@@ -71,20 +75,20 @@ function render(data) {
       : "Unknown";
 
   if (data.fallbackActive) {
-    routeStatus.textContent = "Fallback active";
+    routeStatus.textContent = t("fallback");
   } else if (data.healthStatus === "available") {
-    routeStatus.textContent = "Normal";
+    routeStatus.textContent = t("normal");
   } else if (data.healthStatus === "unavailable") {
-    routeStatus.textContent = "Unavailable";
+    routeStatus.textContent = t("unavailable");
   } else {
-    routeStatus.textContent = "Health unknown";
+    routeStatus.textContent = t("unknown");
   }
 
   if (data.policySource === "default") {
-    policySource.textContent = "Default";
+    policySource.textContent = t("defaultPolicy");
   } else {
     policySource.textContent =
-      `${data.policySource === "exact" ? "Exact rule" : "Suffix rule"}` +
+      `${data.policySource === "exact" ? t("exactRule") : t("suffixRule")}` +
       (data.matchedPolicyDomain ? ` · ${data.matchedPolicyDomain}` : "");
   }
 
@@ -93,13 +97,13 @@ function render(data) {
 
     const recommendation =
       a.recommendedRoute === "no-override"
-        ? "no routing change recommended"
-        : `recommendation: ${routeNames[a.recommendedRoute] || a.recommendedRoute}`;
+        ? t("noChange")
+        : `${t("recommendation")}: ${routeNames[a.recommendedRoute] || a.recommendedRoute}`;
 
     analysisText.textContent =
-      `${a.samples} samples · ${recommendation}` +
+      `${a.samples} ${t("samples")} · ${recommendation}` +
       (typeof a.gainVsSecondPercent === "number"
-        ? ` · measured advantage ${a.gainVsSecondPercent.toFixed(1)}%`
+        ? ` · ${t("advantage")} ${a.gainVsSecondPercent.toFixed(1)}%`
         : "");
 
     analysisBlock.classList.remove("hidden");
@@ -121,7 +125,7 @@ function render(data) {
       const detail = document.createElement("div");
       detail.className = "measurement-detail";
       detail.textContent =
-        `${item.bestIp || "No address"} · DNS ${formatMs(item.dnsLatencyMs)}`;
+        `${item.bestIp || t("noAddress")} · DNS ${formatMs(item.dnsLatencyMs)}`;
 
       const total = document.createElement("div");
       total.className = "measurement-total";
@@ -144,13 +148,13 @@ async function checkDomain() {
 
   if (!domain) {
     result.classList.add("hidden");
-    showMessage("Enter a domain name.", true);
+    showMessage(t("enterDomain"), true);
     return;
   }
 
   checkButton.disabled = true;
   result.classList.add("hidden");
-  showMessage("Checking…");
+  showMessage(t("checking"));
 
   try {
     const data = await apiRequest(
@@ -164,7 +168,7 @@ async function checkDomain() {
     if (error.status === 401) {
       returnToTolf();
     } else {
-      showMessage(error.message || "Unable to check this domain.", true);
+      showMessage(error.message || t("checkFailed"), true);
     }
   } finally {
     checkButton.disabled = false;
@@ -184,13 +188,14 @@ function deviceMessageShow(text, error = false) {
 }
 
 function renderDevices(data) {
+  lastDevicesData = data;
   const items = Array.isArray(data?.devices) ? data.devices : [];
   deviceList.textContent = "";
 
   if (!items.length) {
     const empty = document.createElement("p");
     empty.className = "empty-state";
-    empty.textContent = "No Smart DNS devices yet.";
+    empty.textContent = t("noDevices");
     deviceList.appendChild(empty);
     return;
   }
@@ -201,9 +206,9 @@ function renderDevices(data) {
 
     const info = document.createElement("div");
     const name = document.createElement("strong");
-    name.textContent = item.name || "Device";
+    name.textContent = item.name || t("device");
     const meta = document.createElement("span");
-    meta.textContent = item.state === "revoked" ? "Revoked" : "Active";
+    meta.textContent = item.state === "revoked" ? t("revoked") : t("active");
     info.append(name, meta);
     row.appendChild(info);
 
@@ -211,7 +216,7 @@ function renderDevices(data) {
       const revoke = document.createElement("button");
       revoke.type = "button";
       revoke.className = "text-button";
-      revoke.textContent = "Revoke";
+      revoke.textContent = t("revoke");
       revoke.onclick = async () => {
         revoke.disabled = true;
         try {
@@ -220,7 +225,7 @@ function renderDevices(data) {
           });
           await loadDevices();
         } catch (error) {
-          deviceMessageShow(error.message || "Unable to revoke device.", true);
+          deviceMessageShow(error.message || t("revokeFailed"), true);
           revoke.disabled = false;
         }
       };
@@ -236,7 +241,7 @@ async function loadDevices() {
     renderDevices(await apiRequest("/dns/devices", { method: "GET" }));
   } catch (error) {
     if (error.status === 401) returnToTolf();
-    else deviceMessageShow(error.message || "Unable to load devices.", true);
+    else deviceMessageShow(error.message || t("loadDevicesFailed"), true);
   }
 }
 
@@ -248,7 +253,7 @@ addDeviceButton.addEventListener("click", () => {
 createDeviceButton.addEventListener("click", async () => {
   const name = deviceName.value.trim();
   if (!name) {
-    deviceMessageShow("Enter a device name.", true);
+    deviceMessageShow(t("enterDevice"), true);
     return;
   }
 
@@ -263,7 +268,7 @@ createDeviceButton.addEventListener("click", async () => {
 
     deviceName.value = "";
     deviceForm.classList.add("hidden");
-    deviceMessageShow("Device created. Save the setup information below.");
+    deviceMessageShow(t("created"));
 
     setupBox.textContent = "";
     const title = document.createElement("strong");
@@ -273,7 +278,7 @@ createDeviceButton.addEventListener("click", async () => {
     endpoint.textContent = data.dohUrl || "";
 
     const note = document.createElement("p");
-    note.textContent = "This personal DoH address contains your credential. Keep it private.";
+    note.textContent = t("privateEndpoint");
 
     setupBox.append(title, endpoint, note);
 
@@ -281,18 +286,26 @@ createDeviceButton.addEventListener("click", async () => {
       const link = document.createElement("a");
       link.className = "profile-link";
       link.href = data.iosProfileUrl;
-      link.textContent = "Install iOS / iPadOS profile";
+      link.textContent = t("installProfile");
       setupBox.appendChild(link);
     }
 
     setupBox.classList.remove("hidden");
     await loadDevices();
   } catch (error) {
-    deviceMessageShow(error.message || "Unable to create device.", true);
+    deviceMessageShow(error.message || t("createFailed"), true);
   } finally {
     createDeviceButton.disabled = false;
   }
 });
+
+function refreshDynamicContent() {
+  applyLanguage();
+  if (lastRouteData) render(lastRouteData);
+  if (lastDevicesData) renderDevices(lastDevicesData);
+}
+
+applyLanguage();
 
 function returnToTolf() {
   window.location.replace("https://tolf.is/");

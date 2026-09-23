@@ -237,3 +237,9 @@ button:disabled {
 .profile-link{margin-top:10px;color:#0066cc;text-decoration:none;font-weight:600}
 #deviceCard{margin-bottom:18px}
 @media(max-width:560px){.section-head{display:block}.secondary-button{width:100%;margin-top:14px}}
+
+.header{align-items:center}
+.header .language{margin-left:auto;display:inline-flex;padding:3px;border:1px solid #e3e3e7;border-radius:10px;background:#fff}
+.header .language button{min-width:38px;min-height:30px;padding:0 7px;border-radius:7px;background:transparent;color:#6e6e73;font-size:13px}
+.header .language button.active{background:#ececf0;color:#171717}
+@media(max-width:560px){.header{gap:7px}.product{font-size:18px}.header .language button{min-width:32px;padding:0 5px}}
