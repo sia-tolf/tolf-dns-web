@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>TOLF DNS</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <a class="brand" href="https://tolf.is/">TOLF</a>
+      <div class="product">DNS</div>
+    </header>
+
+    <section class="intro">
+      <h1>Smart DNS</h1>
+      <p>Check how TOLF DNS currently routes a domain.</p>
+    </section>
+
+    <section class="card">
+      <label for="domain">Domain</label>
+
+      <div class="check-row">
+        <input
+          id="domain"
+          type="text"
+          inputmode="url"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          placeholder="example.com"
+        >
+        <button id="checkButton" type="button">Check route</button>
+      </div>
+
+      <div id="message" class="message hidden"></div>
+
+      <div id="result" class="result hidden">
+        <div class="route-summary">
+          <div>
+            <div class="caption">Active route</div>
+            <div id="activeRoute" class="route-name">—</div>
+          </div>
+          <div>
+            <div class="caption">Policy</div>
+            <div id="policySource">—</div>
+          </div>
+        </div>
+
+        <div id="analysisBlock" class="analysis hidden">
+          <div class="divider"></div>
+          <div class="caption">Analysis</div>
+          <div id="analysisText"></div>
+        </div>
+
+        <div id="measurementsBlock" class="measurements hidden">
+          <div class="divider"></div>
+          <div class="caption">Latest measurements</div>
+          <div id="measurements"></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footnote">
+      Smart DNS decisions are based on repeated measurements, not on a single lookup.
+    </p>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
