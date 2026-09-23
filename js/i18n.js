@@ -1,0 +1,130 @@
+const SMART_DNS_I18N = {
+  en: {
+    heroTitle:"DNS that chooses the route.",
+    heroText:"TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.",
+    myDns:"My Smart DNS",
+    myDnsText:"Set up devices that should use your personal encrypted TOLF DNS endpoint.",
+    setupDevice:"Set up Smart DNS on a device",
+    deviceName:"Device name",
+    create:"Create",
+    domain:"Domain",
+    checkRoute:"Check route",
+    currentRoute:"Current route",
+    status:"Status",
+    details:"Details",
+    policyRoute:"Policy route",
+    policy:"Policy",
+    analysis:"Analysis",
+    measurements:"Latest measurements",
+    footnote:"Smart DNS decisions are based on repeated measurements, not on a single lookup.",
+    standardTitle:"Standard DNS route is being used",
+    standardText:"TOLF has no special routing rule for this domain. It is using the normal DNS path.",
+    measuredTitle:"TOLF is using a measured route",
+    measuredText:"Repeated measurements produced a special routing rule for this domain.",
+    fallbackTitle:"TOLF switched to a fallback route",
+    fallbackText:"The preferred route is currently unavailable, so TOLF is using a safe fallback.",
+    normal:"Normal", fallback:"Fallback active", unavailable:"Unavailable", unknown:"Health unknown",
+    defaultPolicy:"Default", exactRule:"Exact rule", suffixRule:"Suffix rule",
+    noChange:"no routing change recommended", recommendation:"recommendation", samples:"samples", advantage:"measured advantage",
+    noAddress:"No address", enterDomain:"Enter a domain name.", checking:"Checking…", checkFailed:"Unable to check this domain.",
+    noDevices:"No Smart DNS devices yet.", device:"Device", active:"Active", revoked:"Revoked", revoke:"Revoke",
+    revokeFailed:"Unable to revoke device.", loadDevicesFailed:"Unable to load devices.", enterDevice:"Enter a device name.",
+    created:"Device created. Save the setup information below.", privateEndpoint:"This personal DoH address contains your credential. Keep it private.",
+    installProfile:"Install iOS / iPadOS profile", createFailed:"Unable to create device."
+  },
+  ru: {
+    heroTitle:"DNS, который выбирает маршрут.",
+    heroText:"TOLF сравнивает региональные DNS-маршруты и применяет специальный маршрут только при устойчивом преимуществе по повторным измерениям.",
+    myDns:"Мой Smart DNS",
+    myDnsText:"Настройте устройства, которые будут использовать ваш персональный зашифрованный DNS TOLF.",
+    setupDevice:"Настроить Smart DNS на устройстве",
+    deviceName:"Название устройства",
+    create:"Создать",
+    domain:"Домен",
+    checkRoute:"Проверить маршрут",
+    currentRoute:"Текущий маршрут",
+    status:"Состояние",
+    details:"Подробности",
+    policyRoute:"Маршрут политики",
+    policy:"Правило",
+    analysis:"Анализ",
+    measurements:"Последние измерения",
+    footnote:"Решения Smart DNS основаны на повторных измерениях, а не на одном запросе.",
+    standardTitle:"Используется стандартный DNS-маршрут",
+    standardText:"Для этого домена TOLF не применяет специальное правило. Используется обычный DNS-маршрут.",
+    measuredTitle:"TOLF использует маршрут, выбранный по измерениям",
+    measuredText:"Повторные измерения сформировали специальное правило маршрутизации для этого домена.",
+    fallbackTitle:"TOLF переключился на резервный маршрут",
+    fallbackText:"Предпочтительный маршрут сейчас недоступен, поэтому TOLF использует безопасный резервный вариант.",
+    normal:"Работает нормально", fallback:"Включён резервный маршрут", unavailable:"Недоступен", unknown:"Состояние неизвестно",
+    defaultPolicy:"По умолчанию", exactRule:"Точное правило", suffixRule:"Правило для доменной зоны",
+    noChange:"изменение маршрута не рекомендуется", recommendation:"рекомендация", samples:"измерений", advantage:"преимущество по измерениям",
+    noAddress:"Нет адреса", enterDomain:"Введите доменное имя.", checking:"Проверяем…", checkFailed:"Не удалось проверить домен.",
+    noDevices:"Устройств Smart DNS пока нет.", device:"Устройство", active:"Активно", revoked:"Отозвано", revoke:"Отозвать",
+    revokeFailed:"Не удалось отозвать доступ устройства.", loadDevicesFailed:"Не удалось загрузить устройства.", enterDevice:"Введите название устройства.",
+    created:"Устройство создано. Сохраните данные настройки ниже.", privateEndpoint:"Этот персональный адрес DoH содержит ваши учётные данные. Не передавайте его другим.",
+    installProfile:"Установить профиль iOS / iPadOS", createFailed:"Не удалось создать настройку устройства."
+  },
+  lv: {
+    heroTitle:"DNS, kas izvēlas maršrutu.",
+    heroText:"TOLF salīdzina reģionālos DNS maršrutus un īpašu maršrutu izmanto tikai tad, ja atkārtoti mērījumi rāda stabilu priekšrocību.",
+    myDns:"Mans Smart DNS",
+    myDnsText:"Iestatiet ierīces, kas izmantos jūsu personīgo šifrēto TOLF DNS.",
+    setupDevice:"Iestatīt Smart DNS ierīcē",
+    deviceName:"Ierīces nosaukums",
+    create:"Izveidot",
+    domain:"Domēns",
+    checkRoute:"Pārbaudīt maršrutu",
+    currentRoute:"Pašreizējais maršruts",
+    status:"Statuss",
+    details:"Detaļas",
+    policyRoute:"Politikas maršruts",
+    policy:"Noteikums",
+    analysis:"Analīze",
+    measurements:"Jaunākie mērījumi",
+    footnote:"Smart DNS lēmumi balstās uz atkārtotiem mērījumiem, nevis uz vienu pieprasījumu.",
+    standardTitle:"Tiek izmantots standarta DNS maršruts",
+    standardText:"TOLF šim domēnam nepiemēro īpašu noteikumu. Tiek izmantots parastais DNS maršruts.",
+    measuredTitle:"TOLF izmanto pēc mērījumiem izvēlētu maršrutu",
+    measuredText:"Atkārtoti mērījumi šim domēnam ir izveidojuši īpašu maršrutēšanas noteikumu.",
+    fallbackTitle:"TOLF pārslēdzās uz rezerves maršrutu",
+    fallbackText:"Vēlamais maršruts pašlaik nav pieejams, tāpēc TOLF izmanto drošu rezerves variantu.",
+    normal:"Darbojas normāli", fallback:"Aktīvs rezerves maršruts", unavailable:"Nav pieejams", unknown:"Statuss nav zināms",
+    defaultPolicy:"Noklusējums", exactRule:"Precīzs noteikums", suffixRule:"Domēna zonas noteikums",
+    noChange:"maršruta maiņa nav ieteicama", recommendation:"ieteikums", samples:"mērījumi", advantage:"izmērītā priekšrocība",
+    noAddress:"Nav adreses", enterDomain:"Ievadiet domēna nosaukumu.", checking:"Pārbaudām…", checkFailed:"Neizdevās pārbaudīt domēnu.",
+    noDevices:"Smart DNS ierīču vēl nav.", device:"Ierīce", active:"Aktīvs", revoked:"Atsaukts", revoke:"Atsaukt",
+    revokeFailed:"Neizdevās atsaukt ierīces piekļuvi.", loadDevicesFailed:"Neizdevās ielādēt ierīces.", enterDevice:"Ievadiet ierīces nosaukumu.",
+    created:"Ierīce izveidota. Saglabājiet zemāk redzamo iestatīšanas informāciju.", privateEndpoint:"Šajā personīgajā DoH adresē ir jūsu piekļuves dati. Neizpaudiet to citiem.",
+    installProfile:"Instalēt iOS / iPadOS profilu", createFailed:"Neizdevās izveidot ierīces iestatījumu."
+  }
+};
+
+let currentLanguage = new URLSearchParams(location.search).get("lang") ||
+  (navigator.language || "en").toLowerCase().slice(0,2);
+if (!SMART_DNS_I18N[currentLanguage]) currentLanguage = "en";
+
+function t(key) {
+  return SMART_DNS_I18N[currentLanguage][key] || SMART_DNS_I18N.en[key] || key;
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLanguage;
+  document.querySelectorAll("[data-t]").forEach(el => {
+    el.textContent = t(el.dataset.t);
+  });
+  document.querySelectorAll("[data-lang]").forEach(button => {
+    button.classList.toggle("active", button.dataset.lang === currentLanguage);
+  });
+}
+
+document.querySelectorAll("[data-lang]").forEach(button => {
+  button.addEventListener("click", () => {
+    currentLanguage = button.dataset.lang;
+    const url = new URL(location.href);
+    url.searchParams.set("lang", currentLanguage);
+    history.replaceState(null, "", url);
+    applyLanguage();
+    if (typeof refreshDynamicContent === "function") refreshDynamicContent();
+  });
+});
