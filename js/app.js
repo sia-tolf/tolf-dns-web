@@ -11,6 +11,11 @@ const effectiveRoute = document.getElementById("effectiveRoute");
 const policySource = document.getElementById("policySource");
 const policyExplanation = document.getElementById("policyExplanation");
 const routeStatus = document.getElementById("routeStatus");
+const answerAddresses = document.getElementById("answerAddresses");
+const answerDnsTime = document.getElementById("answerDnsTime");
+const answerResolver = document.getElementById("answerResolver");
+const answerProtocol = document.getElementById("answerProtocol");
+const answerNode = document.getElementById("answerNode");
 const analysisBlock = document.getElementById("analysisBlock");
 const analysisText = document.getElementById("analysisText");
 const measurementsBlock = document.getElementById("measurementsBlock");
@@ -48,6 +53,18 @@ function formatMs(value) {
   return typeof value === "number" ? `${value.toFixed(1)} ms` : "—";
 }
 
+function resolverForRoute(route) {
+  if (route === "russia") return t("resolverYandex");
+  if (route === "quad9_ecs") return t("resolverQuad9Ecs");
+  if (route === "local") return t("resolverQuad9");
+  return "—";
+}
+
+function measurementForRoute(data, route) {
+  const items = Array.isArray(data.measurements) ? data.measurements : [];
+  return items.find(item => item.route === route) || null;
+}
+
 function render(data) {
   lastRouteData = data;
   hideMessage();
@@ -72,9 +89,14 @@ function render(data) {
     routeLabel(data.policyRoute);
 
   effectiveRoute.textContent =
-    data.effectiveRoute
-      ? (routeLabel(data.effectiveRoute))
-      : "Unknown";
+    data.effectiveRoute ? routeLabel(data.effectiveRoute) : "—";
+
+  const activeMeasurement = measurementForRoute(data, data.effectiveRoute);
+  answerAddresses.textContent = activeMeasurement?.bestIp || "—";
+  answerDnsTime.textContent = formatMs(activeMeasurement?.dnsLatencyMs);
+  answerResolver.textContent = resolverForRoute(data.effectiveRoute);
+  answerProtocol.textContent = "DoT";
+  answerNode.textContent = data.node || "Riga";
 
   if (data.fallbackActive) {
     routeStatus.textContent = t("fallback");

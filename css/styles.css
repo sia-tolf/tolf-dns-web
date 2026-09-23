@@ -247,3 +247,12 @@ button:disabled {
 .policy-explanation{margin:0 0 16px;color:#6e6e73;line-height:1.45}
 html[data-tolf-ui="smartdns"] .secondary{white-space:normal}
 html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-radius:10px;font-size:14px}
+
+.section-head.compact{margin-bottom:18px}
+.dns-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:22px;border-top:1px solid #e8e8eb;border-bottom:1px solid #e8e8eb}
+.dns-answer-grid>div{padding:14px 0}
+.dns-answer-grid>div:nth-child(even){padding-left:18px;border-left:1px solid #e8e8eb}
+.dns-answer-grid>div:nth-child(n+3){border-top:1px solid #eeeeef}
+.dns-answer-grid .answer-wide{grid-column:1/-1;padding-left:0;border-left:0}
+.answer-value{font-size:17px;font-weight:600;overflow-wrap:anywhere}
+@media(max-width:560px){.dns-answer-grid{grid-template-columns:1fr}.dns-answer-grid .answer-wide{grid-column:auto}.dns-answer-grid>div,.dns-answer-grid>div:nth-child(even){padding:12px 0;border-left:0}.dns-answer-grid>div+div{border-top:1px solid #eeeeef}}

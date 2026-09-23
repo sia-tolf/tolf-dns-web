@@ -47,6 +47,12 @@
     </section>
 
     <section id="checkCard" class="card hidden">
+      <div class="section-head compact">
+        <div>
+          <h2 data-t="domainCheckTitle">Domain check</h2>
+          <p data-t="domainCheckText">See the DNS answer TOLF Smart DNS currently uses for a domain.</p>
+        </div>
+      </div>
       <label for="domain" data-t="domain">Domain</label>
 
       <div class="check-row">
@@ -69,9 +75,14 @@
         <h2 id="resultTitle" class="result-title"></h2>
         <p id="resultDescription" class="result-description"></p>
 
-        <div class="simple-summary">
-          <div><div class="caption" data-t="dnsUsed">DNS used</div><div id="effectiveRoute" class="route-name">—</div></div>
-          <div><div class="caption" data-t="availability">Availability</div><div id="routeStatus" class="route-state">—</div></div>
+        <div class="dns-answer-grid">
+          <div class="answer-wide"><div class="caption" data-t="addresses">Returned address</div><div id="answerAddresses" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="dnsTime">DNS response</div><div id="answerDnsTime" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="resolver">Resolver</div><div id="answerResolver" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="protocol">Protocol</div><div id="answerProtocol" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="node">TOLF node</div><div id="answerNode" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="dnsUsed">DNS route</div><div id="effectiveRoute" class="answer-value">—</div></div>
+          <div><div class="caption" data-t="availability">Result</div><div id="routeStatus" class="answer-value">—</div></div>
         </div>
 
         <details class="technical-details">
