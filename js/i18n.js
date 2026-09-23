@@ -1,6 +1,6 @@
 const SMART_DNS_I18N = {
   en: {
-    heroTitle:"DNS that chooses the route.",
+    heroTitle:"DNS that chooses the route",
     heroText:"TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.",
     myDns:"My Smart DNS",
     myDnsText:"Set up devices that should use your personal encrypted TOLF DNS endpoint.",
@@ -23,8 +23,8 @@ const SMART_DNS_I18N = {
     measuredText:"Repeated measurements produced a special routing rule for this domain.",
     fallbackTitle:"TOLF switched to a fallback route",
     fallbackText:"The preferred route is currently unavailable, so TOLF is using a safe fallback.",
-    normal:"Normal", fallback:"Fallback active", unavailable:"Unavailable", unknown:"Health unknown",
-    defaultPolicy:"Default", exactRule:"Exact rule", suffixRule:"Suffix rule",
+    normal:"Available", fallback:"Fallback in use", unavailable:"Unavailable", unknown:"Availability unknown",
+    defaultPolicy:"No special rule is needed for this domain.", exactRule:"A dedicated rule is active for this domain.", suffixRule:"A regional rule is active for this domain group.",
     noChange:"no routing change recommended", recommendation:"recommendation", samples:"samples", advantage:"measured advantage",
     noAddress:"No address", enterDomain:"Enter a domain name.", checking:"Checking…", checkFailed:"Unable to check this domain.",
     noDevices:"No Smart DNS devices yet.", device:"Device", active:"Active", revoked:"Revoked", revoke:"Revoke",
@@ -33,7 +33,7 @@ const SMART_DNS_I18N = {
     installProfile:"Install iOS / iPadOS profile", createFailed:"Unable to create device."
   },
   ru: {
-    heroTitle:"DNS, который выбирает маршрут.",
+    heroTitle:"DNS, которая выбирает маршрут",
     heroText:"TOLF сравнивает региональные DNS-маршруты и применяет специальный маршрут только при устойчивом преимуществе по повторным измерениям.",
     myDns:"Мой Smart DNS",
     myDnsText:"Настройте устройства, которые будут использовать ваш персональный зашифрованный DNS TOLF.",
@@ -56,8 +56,8 @@ const SMART_DNS_I18N = {
     measuredText:"Повторные измерения сформировали специальное правило маршрутизации для этого домена.",
     fallbackTitle:"TOLF переключился на резервный маршрут",
     fallbackText:"Предпочтительный маршрут сейчас недоступен, поэтому TOLF использует безопасный резервный вариант.",
-    normal:"Работает нормально", fallback:"Включён резервный маршрут", unavailable:"Недоступен", unknown:"Состояние неизвестно",
-    defaultPolicy:"По умолчанию", exactRule:"Точное правило", suffixRule:"Правило для доменной зоны",
+    normal:"Доступен", fallback:"Используется резервный DNS", unavailable:"Недоступен", unknown:"Доступность неизвестна",
+    defaultPolicy:"Для этого домена специальное правило не требуется.", exactRule:"Для этого домена действует отдельное правило.", suffixRule:"Для этой группы доменов действует региональное правило.",
     noChange:"изменение маршрута не рекомендуется", recommendation:"рекомендация", samples:"измерений", advantage:"преимущество по измерениям",
     noAddress:"Нет адреса", enterDomain:"Введите доменное имя.", checking:"Проверяем…", checkFailed:"Не удалось проверить домен.",
     noDevices:"Устройств Smart DNS пока нет.", device:"Устройство", active:"Активно", revoked:"Отозвано", revoke:"Отозвать",
@@ -66,7 +66,7 @@ const SMART_DNS_I18N = {
     installProfile:"Установить профиль iOS / iPadOS", createFailed:"Не удалось создать настройку устройства."
   },
   lv: {
-    heroTitle:"DNS, kas izvēlas maršrutu.",
+    heroTitle:"DNS, kas izvēlas maršrutu",
     heroText:"TOLF salīdzina reģionālos DNS maršrutus un īpašu maršrutu izmanto tikai tad, ja atkārtoti mērījumi rāda stabilu priekšrocību.",
     myDns:"Mans Smart DNS",
     myDnsText:"Iestatiet ierīces, kas izmantos jūsu personīgo šifrēto TOLF DNS.",
@@ -89,8 +89,8 @@ const SMART_DNS_I18N = {
     measuredText:"Atkārtoti mērījumi šim domēnam ir izveidojuši īpašu maršrutēšanas noteikumu.",
     fallbackTitle:"TOLF pārslēdzās uz rezerves maršrutu",
     fallbackText:"Vēlamais maršruts pašlaik nav pieejams, tāpēc TOLF izmanto drošu rezerves variantu.",
-    normal:"Darbojas normāli", fallback:"Aktīvs rezerves maršruts", unavailable:"Nav pieejams", unknown:"Statuss nav zināms",
-    defaultPolicy:"Noklusējums", exactRule:"Precīzs noteikums", suffixRule:"Domēna zonas noteikums",
+    normal:"Pieejams", fallback:"Tiek izmantots rezerves DNS", unavailable:"Nav pieejams", unknown:"Pieejamība nav zināma",
+    defaultPolicy:"Šim domēnam īpašs noteikums nav nepieciešams.", exactRule:"Šim domēnam ir aktīvs atsevišķs noteikums.", suffixRule:"Šai domēnu grupai ir aktīvs reģionāls noteikums.",
     noChange:"maršruta maiņa nav ieteicama", recommendation:"ieteikums", samples:"mērījumi", advantage:"izmērītā priekšrocība",
     noAddress:"Nav adreses", enterDomain:"Ievadiet domēna nosaukumu.", checking:"Pārbaudām…", checkFailed:"Neizdevās pārbaudīt domēnu.",
     noDevices:"Smart DNS ierīču vēl nav.", device:"Ierīce", active:"Aktīvs", revoked:"Atsaukts", revoke:"Atsaukt",
