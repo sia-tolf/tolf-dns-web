@@ -243,3 +243,7 @@ button:disabled {
 .header .language button{min-width:38px;min-height:30px;padding:0 7px;border-radius:7px;background:transparent;color:#6e6e73;font-size:13px}
 .header .language button.active{background:#ececf0;color:#171717}
 @media(max-width:560px){.header{gap:7px}.product{font-size:18px}.header .language button{min-width:32px;padding:0 5px}}
+
+.policy-explanation{margin:0 0 16px;color:#6e6e73;line-height:1.45}
+html[data-tolf-ui="smartdns"] .secondary{white-space:normal}
+html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-radius:10px;font-size:14px}

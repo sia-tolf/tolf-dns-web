@@ -9,6 +9,7 @@ const resultDescription = document.getElementById("resultDescription");
 const policyRoute = document.getElementById("policyRoute");
 const effectiveRoute = document.getElementById("effectiveRoute");
 const policySource = document.getElementById("policySource");
+const policyExplanation = document.getElementById("policyExplanation");
 const routeStatus = document.getElementById("routeStatus");
 const analysisBlock = document.getElementById("analysisBlock");
 const analysisText = document.getElementById("analysisText");
@@ -23,11 +24,12 @@ const deviceMessage = document.getElementById("deviceMessage");
 const setupBox = document.getElementById("setupBox");
 const deviceList = document.getElementById("deviceList");
 
-const routeNames = {
-  local: "Local",
-  russia: "Russia",
-  quad9_ecs: "Quad9 ECS"
-};
+function routeLabel(route) {
+  if (route === "local") return t("routeLocal");
+  if (route === "russia") return t("routeRussia");
+  if (route === "quad9_ecs") return t("routeGlobal");
+  return route || "—";
+}
 
 let lastRouteData = null;
 let lastDevicesData = null;
@@ -67,11 +69,11 @@ function render(data) {
   }
 
   policyRoute.textContent =
-    routeNames[data.policyRoute] || data.policyRoute || "—";
+    routeLabel(data.policyRoute);
 
   effectiveRoute.textContent =
     data.effectiveRoute
-      ? (routeNames[data.effectiveRoute] || data.effectiveRoute)
+      ? (routeLabel(data.effectiveRoute))
       : "Unknown";
 
   if (data.fallbackActive) {
@@ -85,11 +87,13 @@ function render(data) {
   }
 
   if (data.policySource === "default") {
-    policySource.textContent = t("defaultPolicy");
+    policySource.textContent = "default";
+    policyExplanation.textContent = t("defaultPolicy");
   } else {
-    policySource.textContent =
-      `${data.policySource === "exact" ? t("exactRule") : t("suffixRule")}` +
-      (data.matchedPolicyDomain ? ` · ${data.matchedPolicyDomain}` : "");
+    policySource.textContent = data.policySource || "";
+    policyExplanation.textContent =
+      (data.policySource === "exact" ? t("exactRule") : t("suffixRule")) +
+      (data.matchedPolicyDomain ? ` ${data.matchedPolicyDomain}` : "");
   }
 
   if (data.analysis) {
@@ -98,7 +102,7 @@ function render(data) {
     const recommendation =
       a.recommendedRoute === "no-override"
         ? t("noChange")
-        : `${t("recommendation")}: ${routeNames[a.recommendedRoute] || a.recommendedRoute}`;
+        : `${t("recommendation")}: ${routeLabel(a.recommendedRoute)}`;
 
     analysisText.textContent =
       `${a.samples} ${t("samples")} · ${recommendation}` +
@@ -120,7 +124,7 @@ function render(data) {
 
       const name = document.createElement("div");
       name.className = "measurement-route";
-      name.textContent = routeNames[item.route] || item.route;
+      name.textContent = routeLabel(item.route);
 
       const detail = document.createElement("div");
       detail.className = "measurement-detail";
@@ -215,7 +219,7 @@ function renderDevices(data) {
     if (item.state !== "revoked") {
       const revoke = document.createElement("button");
       revoke.type = "button";
-      revoke.className = "text-button";
+      revoke.className = "danger";
       revoke.textContent = t("revoke");
       revoke.onclick = async () => {
         revoke.disabled = true;
