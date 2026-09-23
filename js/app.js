@@ -14,6 +14,14 @@ const analysisBlock = document.getElementById("analysisBlock");
 const analysisText = document.getElementById("analysisText");
 const measurementsBlock = document.getElementById("measurementsBlock");
 const measurements = document.getElementById("measurements");
+const deviceCard = document.getElementById("deviceCard");
+const addDeviceButton = document.getElementById("addDeviceButton");
+const deviceForm = document.getElementById("deviceForm");
+const deviceName = document.getElementById("deviceName");
+const createDeviceButton = document.getElementById("createDeviceButton");
+const deviceMessage = document.getElementById("deviceMessage");
+const setupBox = document.getElementById("setupBox");
+const deviceList = document.getElementById("deviceList");
 
 const routeNames = {
   local: "Local",
@@ -164,8 +172,127 @@ async function checkDomain() {
 }
 
 function showSignedIn() {
+  deviceCard.classList.remove("hidden");
   checkCard.classList.remove("hidden");
+  loadDevices();
 }
+
+function deviceMessageShow(text, error = false) {
+  deviceMessage.textContent = text;
+  deviceMessage.classList.toggle("error", error);
+  deviceMessage.classList.remove("hidden");
+}
+
+function renderDevices(data) {
+  const items = Array.isArray(data?.devices) ? data.devices : [];
+  deviceList.textContent = "";
+
+  if (!items.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "No Smart DNS devices yet.";
+    deviceList.appendChild(empty);
+    return;
+  }
+
+  for (const item of items) {
+    const row = document.createElement("div");
+    row.className = "device-row";
+
+    const info = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = item.name || "Device";
+    const meta = document.createElement("span");
+    meta.textContent = item.state === "revoked" ? "Revoked" : "Active";
+    info.append(name, meta);
+    row.appendChild(info);
+
+    if (item.state !== "revoked") {
+      const revoke = document.createElement("button");
+      revoke.type = "button";
+      revoke.className = "text-button";
+      revoke.textContent = "Revoke";
+      revoke.onclick = async () => {
+        revoke.disabled = true;
+        try {
+          await apiRequest(`/dns/devices/${encodeURIComponent(item.id)}/revoke`, {
+            method: "POST", body: "{}"
+          });
+          await loadDevices();
+        } catch (error) {
+          deviceMessageShow(error.message || "Unable to revoke device.", true);
+          revoke.disabled = false;
+        }
+      };
+      row.appendChild(revoke);
+    }
+
+    deviceList.appendChild(row);
+  }
+}
+
+async function loadDevices() {
+  try {
+    renderDevices(await apiRequest("/dns/devices", { method: "GET" }));
+  } catch (error) {
+    if (error.status === 401) returnToTolf();
+    else deviceMessageShow(error.message || "Unable to load devices.", true);
+  }
+}
+
+addDeviceButton.addEventListener("click", () => {
+  deviceForm.classList.toggle("hidden");
+  if (!deviceForm.classList.contains("hidden")) deviceName.focus();
+});
+
+createDeviceButton.addEventListener("click", async () => {
+  const name = deviceName.value.trim();
+  if (!name) {
+    deviceMessageShow("Enter a device name.", true);
+    return;
+  }
+
+  createDeviceButton.disabled = true;
+  setupBox.classList.add("hidden");
+
+  try {
+    const data = await apiRequest("/dns/devices", {
+      method: "POST",
+      body: JSON.stringify({ name })
+    });
+
+    deviceName.value = "";
+    deviceForm.classList.add("hidden");
+    deviceMessageShow("Device created. Save the setup information below.");
+
+    setupBox.textContent = "";
+    const title = document.createElement("strong");
+    title.textContent = data.device?.name || name;
+
+    const endpoint = document.createElement("code");
+    endpoint.textContent = data.dohUrl || "";
+
+    const note = document.createElement("p");
+    note.textContent = "This personal DoH address contains your credential. Keep it private.";
+
+    setupBox.append(title, endpoint, note);
+
+    if (data.iosProfileUrl) {
+      const link = document.createElement("a");
+      link.className = "profile-link";
+      link.href = data.iosProfileUrl;
+      link.textContent = "Install iOS / iPadOS profile";
+      setupBox.appendChild(link);
+    }
+
+    setupBox.classList.remove("hidden");
+    await loadDevices();
+  } catch (error) {
+    deviceMessageShow(error.message || "Unable to create device.", true);
+  } finally {
+    createDeviceButton.disabled = false;
+  }
+});
 
 function returnToTolf() {
   window.location.replace("https://tolf.is/");
