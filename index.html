@@ -20,6 +20,26 @@
       <p>TOLF compares regional DNS paths and applies special routing only when repeated measurements show a stable advantage.</p>
     </section>
 
+    <section id="deviceCard" class="card hidden">
+      <div class="section-head">
+        <div>
+          <h2>My Smart DNS</h2>
+          <p>Add devices that should use your personal encrypted TOLF DNS endpoint.</p>
+        </div>
+        <button id="addDeviceButton" class="secondary-button" type="button">Add device</button>
+      </div>
+      <div id="deviceForm" class="device-form hidden">
+        <label for="deviceName">Device name</label>
+        <div class="check-row">
+          <input id="deviceName" type="text" maxlength="64" autocomplete="off" placeholder="iPad">
+          <button id="createDeviceButton" type="button">Create</button>
+        </div>
+      </div>
+      <div id="deviceMessage" class="message hidden"></div>
+      <div id="setupBox" class="setup-box hidden"></div>
+      <div id="deviceList" class="device-list"></div>
+    </section>
+
     <section id="checkCard" class="card hidden">
       <label for="domain">Domain</label>
 
