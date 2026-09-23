@@ -270,3 +270,32 @@ html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-ra
   .section-head p{font-size:16px}
   html[data-tolf-ui="smartdns"] #addDeviceButton{min-height:48px;padding:10px 14px;font-size:16px;line-height:1.25}
 }
+
+/* Shared TOLF sticky header geometry. */
+.header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  width:100vw;
+  min-height:58px;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  padding:8px max(16px,calc((100vw - 720px)/2));
+  background:rgba(245,245,247,.88);
+  border-bottom:1px solid rgba(0,0,0,.08);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+}
+.brand{display:inline-flex;align-items:center;gap:8px;letter-spacing:.16em;font-size:20px;font-weight:650}
+.brand img{display:block;width:22px;height:22px;flex:0 0 22px}
+.product{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap}
+.header .language{height:42px;min-height:42px;max-height:42px}
+#deviceCard .section-head{gap:24px}
+#deviceCard #addDeviceButton{margin-top:20px}
+.route-explanation{margin-top:20px}
+@media(max-width:560px){
+  .header{padding-top:8px}
+  .brand{font-size:19px}
+  .product{font-size:16px}
+  #deviceCard #addDeviceButton{margin-top:22px}
+}
