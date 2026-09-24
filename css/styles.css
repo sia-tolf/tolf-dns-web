@@ -490,3 +490,24 @@ html[data-tolf-ui="smartdns"] #createDeviceButton{
     max-width:none;
   }
 }
+
+/* Device type is a selection control, using the same TOLF blue hierarchy. */
+html[data-tolf-ui="smartdns"] .platform-option{
+  box-sizing:border-box;
+  height:48px;
+  min-height:48px;
+  padding:0 14px;
+  border:1px solid var(--tolf-outline);
+  border-radius:var(--tolf-radius);
+  background:var(--tolf-card);
+  color:var(--tolf-action-text);
+  font-size:16px;
+  font-weight:500;
+  line-height:1.2;
+}
+html[data-tolf-ui="smartdns"] .platform-option.active{
+  border-color:var(--tolf-blue);
+  background:var(--tolf-blue);
+  color:#fff;
+  font-weight:600;
+}
