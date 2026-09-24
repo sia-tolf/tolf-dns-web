@@ -316,3 +316,62 @@ html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-ra
 .setup-actions button{margin:0}
 html[data-tolf-ui="smartdns"] .intro{scroll-margin-top:76px}
 @media(max-width:560px){.setup-actions{grid-template-columns:1fr 1fr}}
+
+/* Smart DNS action standard: all recommended actions use one 48px blue/white control. */
+html[data-tolf-ui="smartdns"] :is(
+  #addDeviceButton,
+  #createDeviceButton,
+  #checkButton,
+  .primary-link
+){
+  box-sizing:border-box;
+  min-height:48px;
+  height:48px;
+  padding:0 16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--tolf-blue);
+  border-radius:var(--tolf-radius);
+  background:var(--tolf-blue);
+  color:#fff;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.2;
+  text-align:center;
+  text-decoration:none;
+  box-shadow:none;
+}
+html[data-tolf-ui="smartdns"] #addDeviceButton{
+  min-width:258px;
+  width:258px;
+  margin-top:0;
+  white-space:nowrap;
+}
+html[data-tolf-ui="smartdns"] .primary-link{
+  width:100%;
+  margin-top:16px;
+}
+html[data-tolf-ui="smartdns"] #checkButton{
+  min-width:181px;
+  white-space:nowrap;
+}
+html[data-tolf-ui="smartdns"] .setup-actions{
+  align-items:stretch;
+}
+html[data-tolf-ui="smartdns"] .setup-actions > button{
+  height:48px;
+  min-height:48px;
+  margin:0;
+}
+@media(max-width:560px){
+  html[data-tolf-ui="smartdns"] #addDeviceButton{
+    width:100%;
+    min-width:0;
+  }
+  html[data-tolf-ui="smartdns"] #checkButton{
+    width:100%;
+    min-width:0;
+  }
+}
