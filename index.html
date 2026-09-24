@@ -47,7 +47,10 @@
           <label for="deviceName" data-t="deviceName">Device name</label>
           <input id="deviceName" type="text" maxlength="64" autocomplete="off" placeholder="iPad">
         </div>
-        <button id="createDeviceButton" class="primary setup-create" type="button" data-t="continueSetup">Continue</button>
+        <div class="setup-actions">
+          <button id="cancelDeviceButton" class="secondary" type="button" data-t="cancelSetup">Cancel</button>
+          <button id="createDeviceButton" class="primary" type="button" data-t="continueSetup">Continue</button>
+        </div>
       </div>
       <div id="deviceMessage" class="message hidden"></div>
       <div id="setupBox" class="setup-box hidden"></div>
@@ -111,7 +114,7 @@
   </main>
 
   <script src="js/api.js"></script>
-  <script src="js/i18n.js?v=7"></script>
-  <script src="js/app.js?v=8"></script>
+  <script src="js/i18n.js?v=8"></script>
+  <script src="js/app.js?v=9"></script>
 </body>
 </html>
