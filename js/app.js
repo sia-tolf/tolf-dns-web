@@ -3,7 +3,6 @@ const domainInput = document.getElementById("domain");
 const checkButton = document.getElementById("checkButton");
 const message = document.getElementById("message");
 const result = document.getElementById("result");
-const resultDomain = document.getElementById("resultDomain");
 const resultTitle = document.getElementById("resultTitle");
 const resultDescription = document.getElementById("resultDescription");
 const routeExplanation = document.getElementById("routeExplanation");
@@ -47,7 +46,19 @@ function hideMessage() {
 }
 
 function formatMs(value) {
-  return typeof value === "number" ? `${value.toFixed(1)} ms` : "—";
+  if (typeof value !== "number") return "—";
+
+  const locale =
+    currentLanguage === "ru" ? "ru-RU" :
+    currentLanguage === "lv" ? "lv-LV" :
+    "en-GB";
+
+  const number = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  }).format(value);
+
+  return `${number} ${currentLanguage === "en" ? "ms" : "мс"}`;
 }
 
  function measurementForRoute(data, route) {
@@ -58,8 +69,6 @@ function formatMs(value) {
 function render(data) {
   lastRouteData = data;
   hideMessage();
-
-  resultDomain.textContent = data.domain || domainInput.value.trim().toLowerCase();
 
   routeExplanation.classList.add("hidden");
   resultTitle.textContent = "";
