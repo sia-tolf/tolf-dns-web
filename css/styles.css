@@ -435,3 +435,58 @@ html[data-tolf-ui="smartdns"] .setup-actions{
     grid-template-columns:1fr 1fr;
   }
 }
+
+/* One visible action system for Smart DNS. */
+html[data-tolf-ui="smartdns"]{
+  --smartdns-action-width:220px;
+}
+html[data-tolf-ui="smartdns"] :is(#addDeviceButton,#checkButton,.primary-link){
+  width:var(--smartdns-action-width);
+  min-width:var(--smartdns-action-width);
+  max-width:var(--smartdns-action-width);
+  height:48px;
+  min-height:48px;
+  padding:0 16px;
+  margin:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--tolf-blue);
+  border-radius:var(--tolf-radius);
+  background:var(--tolf-blue);
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.2;
+  text-decoration:none;
+  white-space:nowrap;
+}
+html[data-tolf-ui="smartdns"] .primary-link{margin-top:16px}
+html[data-tolf-ui="smartdns"] .setup-actions{
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+html[data-tolf-ui="smartdns"] #cancelDeviceButton{
+  width:100%;
+  height:48px;
+  min-height:48px;
+  padding:0 16px;
+  border:1px solid var(--tolf-outline);
+  border-radius:var(--tolf-radius);
+  background:var(--tolf-card);
+  color:var(--tolf-action-text);
+  font-size:16px;
+  font-weight:600;
+}
+html[data-tolf-ui="smartdns"] #createDeviceButton{
+  width:100%;
+  height:48px;
+  min-height:48px;
+}
+@media(max-width:560px){
+  html[data-tolf-ui="smartdns"] :is(#addDeviceButton,#checkButton,.primary-link){
+    width:100%;
+    min-width:0;
+    max-width:none;
+  }
+}
