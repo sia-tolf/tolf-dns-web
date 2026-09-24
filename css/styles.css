@@ -519,3 +519,29 @@ html[data-tolf-ui="smartdns"] .dns-answer-grid>div:nth-child(n+3){
 html[data-tolf-ui="smartdns"] .dns-answer-grid>div:nth-child(2){
   border-top:0;
 }
+
+/* Apple Smart DNS install result. */
+html[data-tolf-ui="smartdns"] .setup-ready-title{
+  display:block;
+  margin:0 0 16px;
+  line-height:1.4;
+}
+html[data-tolf-ui="smartdns"] .setup-box .primary-link{
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  height:48px;
+  min-height:48px;
+  margin:0;
+  padding:0 18px;
+  white-space:nowrap;
+}
+html[data-tolf-ui="smartdns"] .setup-box .profile-expiry{
+  margin:7px 0 0;
+  font-size:13px;
+  line-height:1.35;
+}
+html[data-tolf-ui="smartdns"] .setup-box .manual-details{
+  margin-top:14px;
+}

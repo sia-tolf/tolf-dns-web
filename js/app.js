@@ -354,6 +354,7 @@ createDeviceButton.addEventListener("click", async () => {
     setupBox.textContent = "";
 
     const title = document.createElement("strong");
+    title.className = "setup-ready-title";
     title.textContent =
       (selectedPlatform === "ios" ? t("profileReady") : t("manualReady"))
         .replace("{name}", data.device?.name || name);
@@ -367,6 +368,7 @@ createDeviceButton.addEventListener("click", async () => {
       setupBox.appendChild(link);
 
       const expiry = document.createElement("p");
+      expiry.className = "profile-expiry";
       expiry.textContent = t("linkExpires");
       setupBox.appendChild(expiry);
 
