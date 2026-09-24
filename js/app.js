@@ -369,11 +369,6 @@ createDeviceButton.addEventListener("click", async () => {
       link.textContent = t("installNow");
       setupBox.appendChild(link);
 
-      const expiry = document.createElement("p");
-      expiry.className = "profile-expiry";
-      expiry.textContent = t("linkExpires");
-      setupBox.appendChild(expiry);
-
       const details = document.createElement("details");
       details.className = "manual-details";
       const summary = document.createElement("summary");
@@ -401,7 +396,10 @@ createDeviceButton.addEventListener("click", async () => {
       endpointRow.append(endpoint, copy);
       const note = document.createElement("p");
       note.textContent = t("privateEndpoint");
-      details.append(summary, manualText, endpointRow, note);
+      const expiry = document.createElement("p");
+      expiry.className = "profile-expiry";
+      expiry.textContent = t("profileLinkExpires");
+      details.append(summary, manualText, endpointRow, note, expiry);
       setupBox.appendChild(details);
     } else {
       const manualText = document.createElement("p");
