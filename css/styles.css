@@ -382,3 +382,56 @@ html[data-tolf-ui="smartdns"] #addDeviceButton{
   max-width:220px;
   white-space:nowrap;
 }
+
+/* Final Smart DNS action geometry. */
+html[data-tolf-ui="smartdns"]{
+  --smartdns-action-width:220px;
+}
+html[data-tolf-ui="smartdns"] #addDeviceButton,
+html[data-tolf-ui="smartdns"] #checkButton{
+  box-sizing:border-box;
+  width:var(--smartdns-action-width);
+  min-width:var(--smartdns-action-width);
+  max-width:var(--smartdns-action-width);
+  height:48px;
+  min-height:48px;
+  margin:0;
+  white-space:nowrap;
+}
+html[data-tolf-ui="smartdns"] .check-row{
+  grid-template-columns:minmax(0,1fr) var(--smartdns-action-width);
+}
+html[data-tolf-ui="smartdns"] #cancelDeviceButton{
+  box-sizing:border-box;
+  height:48px;
+  min-height:48px;
+  padding:0 18px;
+  border:1px solid #d8d8dc;
+  border-radius:var(--tolf-radius);
+  background:var(--tolf-soft);
+  color:var(--tolf-ink);
+  font-size:16px;
+  font-weight:600;
+}
+html[data-tolf-ui="smartdns"] #cancelDeviceButton:hover:not(:disabled){
+  background:#e2e2e7;
+  border-color:#d2d2d7;
+}
+html[data-tolf-ui="smartdns"] .setup-actions{
+  grid-template-columns:110px minmax(0,1fr);
+  gap:10px;
+}
+@media(max-width:560px){
+  html[data-tolf-ui="smartdns"] #addDeviceButton,
+  html[data-tolf-ui="smartdns"] #checkButton{
+    width:100%;
+    min-width:0;
+    max-width:none;
+  }
+  html[data-tolf-ui="smartdns"] .check-row{
+    grid-template-columns:1fr;
+  }
+  html[data-tolf-ui="smartdns"] .setup-actions{
+    grid-template-columns:1fr 1fr;
+  }
+}
