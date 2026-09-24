@@ -7,7 +7,8 @@ const resultTitle = document.getElementById("resultTitle");
 const resultDescription = document.getElementById("resultDescription");
 const routeExplanation = document.getElementById("routeExplanation");
 const routeStatus = document.getElementById("routeStatus");
-const answerAddresses = document.getElementById("answerAddresses");
+const answerIpv4 = document.getElementById("answerIpv4");
+const answerIpv6 = document.getElementById("answerIpv6");
 const answerDnsTime = document.getElementById("answerDnsTime");
 const answerResolver = document.getElementById("answerResolver");
 const answerProtocol = document.getElementById("answerProtocol");
@@ -37,9 +38,9 @@ function routeLabel(route) {
 }
 
 function diagnosticRouteLabel(route) {
-  if (route === "local") return t("diagnosticLocal");
-  if (route === "russia") return t("diagnosticRussia");
-  if (route === "quad9_ecs") return t("diagnosticEcs");
+  if (route === "local") return "Quad9";
+  if (route === "russia") return "Yandex DNS";
+  if (route === "quad9_ecs") return "Quad9 ECS";
   return route || "—";
 }
 
@@ -101,7 +102,10 @@ function render(data) {
     ? live.addresses
     : (activeMeasurement?.bestIp ? [activeMeasurement.bestIp] : []);
 
-  answerAddresses.textContent = addresses.length ? addresses.join(", ") : "—";
+  const ipv4 = addresses.filter(value => !String(value).includes(":"));
+  const ipv6 = addresses.filter(value => String(value).includes(":"));
+  answerIpv4.textContent = ipv4.length ? ipv4.join(", ") : "—";
+  answerIpv6.textContent = ipv6.length ? ipv6.join(", ") : "—";
   answerDnsTime.textContent = formatMs(
     typeof live?.dnsLatencyMs === "number"
       ? live.dnsLatencyMs
@@ -128,16 +132,24 @@ function render(data) {
   if (data.analysis) {
     const a = data.analysis;
 
-    const recommendation =
-      a.recommendedRoute === "no-override"
-        ? t("noChange")
-        : `${t("recommendation")}: ${diagnosticRouteLabel(a.recommendedRoute)}`;
+    const locale =
+      currentLanguage === "ru" ? "ru-RU" :
+      currentLanguage === "lv" ? "lv-LV" : "en-GB";
+    const gain = typeof a.gainVsSecondPercent === "number"
+      ? new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(a.gainVsSecondPercent)
+      : "—";
+    const currentResolver = live?.resolver || diagnosticRouteLabel(data.effectiveRoute);
 
     analysisText.textContent =
-      `${a.samples} ${t("samples")} · ${recommendation}` +
-      (typeof a.gainVsSecondPercent === "number"
-        ? ` · ${t("advantage")} ${a.gainVsSecondPercent.toFixed(1)}%`
-        : "");
+      a.recommendedRoute === "no-override"
+        ? t("detailsNoSwitch")
+            .replace("{samples}", a.samples ?? "—")
+            .replace("{gain}", gain)
+            .replace("{resolver}", currentResolver)
+        : t("detailsSelected")
+            .replace("{samples}", a.samples ?? "—")
+            .replace("{gain}", gain)
+            .replace("{resolver}", diagnosticRouteLabel(a.recommendedRoute));
 
     analysisBlock.classList.remove("hidden");
   } else {

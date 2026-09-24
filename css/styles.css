@@ -511,3 +511,11 @@ html[data-tolf-ui="smartdns"] .platform-option.active{
   color:#fff;
   font-weight:600;
 }
+
+/* Complete row separators in the DNS answer grid. */
+html[data-tolf-ui="smartdns"] .dns-answer-grid>div:nth-child(n+3){
+  border-top:1px solid #eeeeef;
+}
+html[data-tolf-ui="smartdns"] .dns-answer-grid>div:nth-child(2){
+  border-top:0;
+}
