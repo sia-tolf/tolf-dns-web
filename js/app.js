@@ -16,6 +16,7 @@ const analysisBlock = document.getElementById("analysisBlock");
 const analysisText = document.getElementById("analysisText");
 const measurementsBlock = document.getElementById("measurementsBlock");
 const measurements = document.getElementById("measurements");
+const technicalDetails = document.getElementById("technicalDetails");
 const deviceCard = document.getElementById("deviceCard");
 const addDeviceButton = document.getElementById("addDeviceButton");
 const deviceForm = document.getElementById("deviceForm");
@@ -32,6 +33,13 @@ function routeLabel(route) {
   if (route === "local") return t("routeLocal");
   if (route === "russia") return t("routeRussia");
   if (route === "quad9_ecs") return t("routeGlobal");
+  return route || "—";
+}
+
+function diagnosticRouteLabel(route) {
+  if (route === "local") return t("diagnosticLocal");
+  if (route === "russia") return t("diagnosticRussia");
+  if (route === "quad9_ecs") return t("diagnosticEcs");
   return route || "—";
 }
 
@@ -123,7 +131,7 @@ function render(data) {
     const recommendation =
       a.recommendedRoute === "no-override"
         ? t("noChange")
-        : `${t("recommendation")}: ${routeLabel(a.recommendedRoute)}`;
+        : `${t("recommendation")}: ${diagnosticRouteLabel(a.recommendedRoute)}`;
 
     analysisText.textContent =
       `${a.samples} ${t("samples")} · ${recommendation}` +
@@ -145,7 +153,7 @@ function render(data) {
 
       const name = document.createElement("div");
       name.className = "measurement-route";
-      name.textContent = routeLabel(item.route);
+      name.textContent = diagnosticRouteLabel(item.route);
 
       const detail = document.createElement("div");
       detail.className = "measurement-detail";
@@ -164,6 +172,13 @@ function render(data) {
   } else {
     measurementsBlock.classList.add("hidden");
   }
+
+  const hasDetails =
+    Boolean(data.analysis) ||
+    (Array.isArray(data.measurements) && data.measurements.length > 0);
+
+  technicalDetails.classList.toggle("hidden", !hasDetails);
+  if (!hasDetails) technicalDetails.open = false;
 
   result.classList.remove("hidden");
 }
