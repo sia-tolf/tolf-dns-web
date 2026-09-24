@@ -375,3 +375,10 @@ html[data-tolf-ui="smartdns"] .setup-actions > button{
     min-width:0;
   }
 }
+
+html[data-tolf-ui="smartdns"] #addDeviceButton{
+  width:auto;
+  min-width:190px;
+  max-width:220px;
+  white-space:nowrap;
+}

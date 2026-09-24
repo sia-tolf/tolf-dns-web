@@ -214,7 +214,9 @@ function deviceMessageShow(text, error = false) {
 
 function renderDevices(data) {
   lastDevicesData = data;
-  const items = Array.isArray(data?.devices) ? data.devices : [];
+  const items = Array.isArray(data?.devices)
+    ? data.devices.filter(item => item.state !== "revoked")
+    : [];
   deviceList.textContent = "";
 
   if (!items.length) {
@@ -233,11 +235,11 @@ function renderDevices(data) {
     const name = document.createElement("strong");
     name.textContent = item.name || t("device");
     const meta = document.createElement("span");
-    meta.textContent = item.state === "revoked" ? t("revoked") : t("active");
+    meta.textContent = t("active");
     info.append(name, meta);
     row.appendChild(info);
 
-    if (item.state !== "revoked") {
+    {
       const revoke = document.createElement("button");
       revoke.type = "button";
       revoke.className = "danger";
