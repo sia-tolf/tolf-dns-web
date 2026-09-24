@@ -299,3 +299,15 @@ html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-ra
   .product{font-size:16px}
   #deviceCard #addDeviceButton{margin-top:22px}
 }
+
+.setup-step+.setup-step{margin-top:18px}
+.step-label{margin-bottom:8px;color:#6e6e73;font-size:14px}
+.platform-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.platform-option{min-height:42px;padding:8px 10px;background:#f2f2f4;color:#1d1d1f;border:1px solid #dedee2;border-radius:10px;font-size:15px}
+.platform-option.active{background:#e8f1ff;color:#0759b5;border-color:#9dc5f7}
+.setup-create{width:100%;margin-top:20px}
+.primary-link{display:block;margin-top:16px;padding:11px 14px;border-radius:10px;background:#0a66d8;color:#fff;text-align:center;text-decoration:none;font-weight:600}
+.manual-details{margin-top:14px}
+.manual-details summary{cursor:pointer;color:#6e6e73;font-size:14px}
+.manual-details[open] summary{margin-bottom:10px}
+@media(max-width:560px){.platform-options{grid-template-columns:1fr 1fr}}

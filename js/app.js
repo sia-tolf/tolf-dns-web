@@ -24,6 +24,8 @@ const createDeviceButton = document.getElementById("createDeviceButton");
 const deviceMessage = document.getElementById("deviceMessage");
 const setupBox = document.getElementById("setupBox");
 const deviceList = document.getElementById("deviceList");
+const platformOptions = document.getElementById("platformOptions");
+let selectedPlatform = "ios";
 
 function routeLabel(route) {
   if (route === "local") return t("routeLocal");
@@ -267,6 +269,24 @@ async function loadDevices() {
   }
 }
 
+platformOptions.addEventListener("click", event => {
+  const button = event.target.closest("[data-platform]");
+  if (!button) return;
+
+  selectedPlatform = button.dataset.platform;
+  platformOptions.querySelectorAll("[data-platform]").forEach(item => {
+    item.classList.toggle("active", item === button);
+  });
+
+  if (!deviceName.value.trim()) {
+    deviceName.placeholder =
+      selectedPlatform === "ios" ? "iPad" :
+      selectedPlatform === "android" ? "Android" :
+      selectedPlatform === "windows" ? "Windows PC" :
+      t("device");
+  }
+});
+
 addDeviceButton.addEventListener("click", () => {
   deviceForm.classList.toggle("hidden");
   if (!deviceForm.classList.contains("hidden")) deviceName.focus();
@@ -290,29 +310,49 @@ createDeviceButton.addEventListener("click", async () => {
 
     deviceName.value = "";
     deviceForm.classList.add("hidden");
-    deviceMessageShow(t("created"));
-
     setupBox.textContent = "";
+
     const title = document.createElement("strong");
-    title.textContent = data.device?.name || name;
+    title.textContent =
+      (selectedPlatform === "ios" ? t("profileReady") : t("manualReady"))
+        .replace("{name}", data.device?.name || name);
+    setupBox.appendChild(title);
 
-    const endpoint = document.createElement("code");
-    endpoint.textContent = data.dohUrl || "";
-
-    const note = document.createElement("p");
-    note.textContent = t("privateEndpoint");
-
-    setupBox.append(title, endpoint, note);
-
-    if (data.iosProfileUrl) {
+    if (selectedPlatform === "ios" && data.iosProfileUrl) {
       const link = document.createElement("a");
-      link.className = "profile-link";
+      link.className = "profile-link primary-link";
       link.href = data.iosProfileUrl;
-      link.textContent = t("installProfile");
+      link.textContent = t("installNow");
       setupBox.appendChild(link);
+
+      const expiry = document.createElement("p");
+      expiry.textContent = t("linkExpires");
+      setupBox.appendChild(expiry);
+
+      const details = document.createElement("details");
+      details.className = "manual-details";
+      const summary = document.createElement("summary");
+      summary.textContent = t("manualSetup");
+      const manualText = document.createElement("p");
+      manualText.textContent = t("manualSetupText");
+      const endpoint = document.createElement("code");
+      endpoint.textContent = data.dohUrl || "";
+      const note = document.createElement("p");
+      note.textContent = t("privateEndpoint");
+      details.append(summary, manualText, endpoint, note);
+      setupBox.appendChild(details);
+    } else {
+      const manualText = document.createElement("p");
+      manualText.textContent = t("manualSetupText");
+      const endpoint = document.createElement("code");
+      endpoint.textContent = data.dohUrl || "";
+      const note = document.createElement("p");
+      note.textContent = t("privateEndpoint");
+      setupBox.append(manualText, endpoint, note);
     }
 
     setupBox.classList.remove("hidden");
+    deviceMessage.classList.add("hidden");
     await loadDevices();
   } catch (error) {
     deviceMessageShow(error.message || t("createFailed"), true);
