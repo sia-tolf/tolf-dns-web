@@ -99,7 +99,11 @@ function render(data) {
   );
   answerResolver.textContent = live?.resolver || "—";
   answerProtocol.textContent = live?.protocol || "—";
-  answerNode.textContent = live?.node || data.node || "—";
+  const nodeName = live?.node || data.node || "—";
+  answerNode.textContent =
+    currentLanguage === "ru" && nodeName.toLowerCase() === "riga"
+      ? "Рига"
+      : nodeName;
 
   if (data.fallbackActive) {
     routeStatus.textContent = t("fallback");
