@@ -311,3 +311,8 @@ html[data-tolf-ui="smartdns"] .danger{min-height:36px;padding:7px 11px;border-ra
 .manual-details summary{cursor:pointer;color:#6e6e73;font-size:14px}
 .manual-details[open] summary{margin-bottom:10px}
 @media(max-width:560px){.platform-options{grid-template-columns:1fr 1fr}}
+
+.setup-actions{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:20px}
+.setup-actions button{margin:0}
+html[data-tolf-ui="smartdns"] .intro{scroll-margin-top:76px}
+@media(max-width:560px){.setup-actions{grid-template-columns:1fr 1fr}}
