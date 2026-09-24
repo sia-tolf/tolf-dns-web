@@ -277,6 +277,11 @@ function renderDevices(data) {
           await apiRequest(`/dns/devices/${encodeURIComponent(item.id)}/revoke`, {
             method: "POST", body: "{}"
           });
+          if (setupBox.dataset.deviceId === item.id) {
+            setupBox.classList.add("hidden");
+            setupBox.textContent = "";
+            delete setupBox.dataset.deviceId;
+          }
           await loadDevices();
         } catch (error) {
           deviceMessageShow(error.message || t("revokeFailed"), true);
@@ -352,6 +357,7 @@ createDeviceButton.addEventListener("click", async () => {
     deviceForm.classList.add("hidden");
     addDeviceButton.classList.remove("hidden");
     setupBox.textContent = "";
+    setupBox.dataset.deviceId = data.device?.id || "";
 
     const title = document.createElement("strong");
     title.className = "setup-ready-title";
