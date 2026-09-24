@@ -369,8 +369,9 @@ createDeviceButton.addEventListener("click", async () => {
     if (selectedPlatform === "ios" && data.iosProfileUrl) {
       const link = document.createElement("a");
       link.className = "profile-link primary-link";
-      const installUrl = new URL(String(data.iosProfileUrl || "").replace(/\/download$/, ""), window.location.href);
-      installUrl.searchParams.set("lang", currentLanguage);
+      const installUrl = new URL(String(data.iosProfileUrl || ""), window.location.href);
+      installUrl.search = "";
+      installUrl.pathname = installUrl.pathname.replace(/\/$/, "") + "/download";
       link.href = installUrl.toString();
       link.textContent = t("installNow");
       setupBox.appendChild(link);
