@@ -580,3 +580,12 @@ html[data-tolf-ui="smartdns"] .dns-answer-grid>div:nth-child(7){
     border-top:1px solid #eeeeef;
   }
 }
+
+html[data-tolf-ui="smartdns"] .setup-box .primary-link{width:100%!important;min-width:100%!important;max-width:100%!important;height:48px;min-height:48px;padding:0 20px;white-space:nowrap}
+html[data-tolf-ui="smartdns"] .endpoint-copy-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;align-items:stretch;gap:0;margin-top:8px}
+html[data-tolf-ui="smartdns"] .endpoint-copy-row code{min-width:0;padding:10px 12px;border-radius:10px 0 0 10px;overflow:auto;white-space:nowrap}
+html[data-tolf-ui="smartdns"] .copy-endpoint{position:relative;width:42px;min-width:42px;min-height:42px;padding:0;border:1px solid var(--tolf-line);border-left:0;border-radius:0 10px 10px 0;background:var(--tolf-card);color:var(--tolf-action-text)}
+html[data-tolf-ui="smartdns"] .copy-endpoint span::before,html[data-tolf-ui="smartdns"] .copy-endpoint span::after{content:"";position:absolute;width:13px;height:13px;border:1.6px solid currentColor;border-radius:2px}
+html[data-tolf-ui="smartdns"] .copy-endpoint span::before{left:12px;top:12px}
+html[data-tolf-ui="smartdns"] .copy-endpoint span::after{left:16px;top:16px;background:var(--tolf-card)}
+html[data-tolf-ui="smartdns"] .copy-endpoint.copied::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--tolf-card);border-radius:inherit;font-size:20px;font-weight:700}

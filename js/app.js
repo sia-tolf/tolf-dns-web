@@ -363,7 +363,9 @@ createDeviceButton.addEventListener("click", async () => {
     if (selectedPlatform === "ios" && data.iosProfileUrl) {
       const link = document.createElement("a");
       link.className = "profile-link primary-link";
-      link.href = data.iosProfileUrl;
+      const installUrl = new URL(String(data.iosProfileUrl || "").replace(/\/download$/, ""), window.location.href);
+      installUrl.searchParams.set("lang", currentLanguage);
+      link.href = installUrl.toString();
       link.textContent = t("installNow");
       setupBox.appendChild(link);
 
@@ -378,11 +380,28 @@ createDeviceButton.addEventListener("click", async () => {
       summary.textContent = t("manualSetup");
       const manualText = document.createElement("p");
       manualText.textContent = t("manualSetupText");
+      const endpointRow = document.createElement("div");
+      endpointRow.className = "endpoint-copy-row";
       const endpoint = document.createElement("code");
       endpoint.textContent = data.dohUrl || "";
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "copy-endpoint";
+      copy.setAttribute("aria-label", t("copyLink"));
+      copy.title = t("copyLink");
+      copy.innerHTML = '<span aria-hidden="true"></span>';
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(data.dohUrl || "");
+          copy.classList.add("copied");
+          copy.title = t("linkCopied");
+          setTimeout(() => { copy.classList.remove("copied"); copy.title = t("copyLink"); }, 1600);
+        } catch (_) {}
+      });
+      endpointRow.append(endpoint, copy);
       const note = document.createElement("p");
       note.textContent = t("privateEndpoint");
-      details.append(summary, manualText, endpoint, note);
+      details.append(summary, manualText, endpointRow, note);
       setupBox.appendChild(details);
     } else {
       const manualText = document.createElement("p");
