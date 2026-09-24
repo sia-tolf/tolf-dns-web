@@ -370,8 +370,9 @@ createDeviceButton.addEventListener("click", async () => {
       const link = document.createElement("a");
       link.className = "profile-link primary-link";
       const installUrl = new URL(String(data.iosProfileUrl || ""), window.location.href);
+      installUrl.hostname = "config.tolf.is";
       installUrl.search = "";
-      installUrl.pathname = installUrl.pathname.replace(/\/$/, "") + "/download";
+      installUrl.pathname = installUrl.pathname.replace(/\/download\/?$/, "").replace(/\/$/, "") + "/download";
       link.href = installUrl.toString();
       link.textContent = t("installNow");
       setupBox.appendChild(link);
