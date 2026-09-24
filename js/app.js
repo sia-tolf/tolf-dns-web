@@ -6,6 +6,7 @@ const result = document.getElementById("result");
 const resultDomain = document.getElementById("resultDomain");
 const resultTitle = document.getElementById("resultTitle");
 const resultDescription = document.getElementById("resultDescription");
+const routeExplanation = document.getElementById("routeExplanation");
 const policyRoute = document.getElementById("policyRoute");
 const effectiveRoute = document.getElementById("effectiveRoute");
 const policySource = document.getElementById("policySource");
@@ -64,18 +65,18 @@ function render(data) {
 
   resultDomain.textContent = data.domain || domainInput.value.trim().toLowerCase();
 
-  if (data.fallbackActive) {
+  routeExplanation.classList.add("hidden");
+  resultTitle.textContent = "";
+  resultDescription.textContent = "";
+
+  const live = data.lookup || null;
+
+  if (live?.fallbackUsed && live?.resolver) {
     resultTitle.textContent = t("fallbackTitle");
-    resultDescription.textContent =
-      t("fallbackText");
-  } else if (data.policySource === "default") {
-    resultTitle.textContent = t("standardTitle");
-    resultDescription.textContent =
-      t("standardText");
-  } else {
-    resultTitle.textContent = t("measuredTitle");
-    resultDescription.textContent =
-      t("measuredText");
+    resultDescription.textContent = t("fallbackText")
+      .replace("{resolver}", live.resolver)
+      .replace("{preferred}", live.preferredResolver || "основной резолвер");
+    routeExplanation.classList.remove("hidden");
   }
 
   policyRoute.textContent =
@@ -84,7 +85,6 @@ function render(data) {
   effectiveRoute.textContent =
     data.effectiveRoute ? routeLabel(data.effectiveRoute) : "—";
 
-  const live = data.lookup || null;
   const activeMeasurement = measurementForRoute(data, data.effectiveRoute);
 
   const addresses = Array.isArray(live?.addresses)
