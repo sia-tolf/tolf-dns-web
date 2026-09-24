@@ -7,10 +7,6 @@ const resultDomain = document.getElementById("resultDomain");
 const resultTitle = document.getElementById("resultTitle");
 const resultDescription = document.getElementById("resultDescription");
 const routeExplanation = document.getElementById("routeExplanation");
-const policyRoute = document.getElementById("policyRoute");
-const effectiveRoute = document.getElementById("effectiveRoute");
-const policySource = document.getElementById("policySource");
-const policyExplanation = document.getElementById("policyExplanation");
 const routeStatus = document.getElementById("routeStatus");
 const answerAddresses = document.getElementById("answerAddresses");
 const answerDnsTime = document.getElementById("answerDnsTime");
@@ -79,12 +75,6 @@ function render(data) {
     routeExplanation.classList.remove("hidden");
   }
 
-  policyRoute.textContent =
-    routeLabel(data.policyRoute);
-
-  effectiveRoute.textContent =
-    data.effectiveRoute ? routeLabel(data.effectiveRoute) : "—";
-
   const activeMeasurement = measurementForRoute(data, data.effectiveRoute);
 
   const addresses = Array.isArray(live?.addresses)
@@ -113,16 +103,6 @@ function render(data) {
     routeStatus.textContent = t("unavailable");
   } else {
     routeStatus.textContent = t("unknown");
-  }
-
-  if (data.policySource === "default") {
-    policySource.textContent = "default";
-    policyExplanation.textContent = t("defaultPolicy");
-  } else {
-    policySource.textContent = data.policySource || "";
-    policyExplanation.textContent =
-      (data.policySource === "exact" ? t("exactRule") : t("suffixRule")) +
-      (data.matchedPolicyDomain ? ` ${data.matchedPolicyDomain}` : "");
   }
 
   if (data.analysis) {
