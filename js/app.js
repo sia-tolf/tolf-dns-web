@@ -21,6 +21,7 @@ const addDeviceButton = document.getElementById("addDeviceButton");
 const deviceForm = document.getElementById("deviceForm");
 const deviceName = document.getElementById("deviceName");
 const createDeviceButton = document.getElementById("createDeviceButton");
+const cancelDeviceButton = document.getElementById("cancelDeviceButton");
 const deviceMessage = document.getElementById("deviceMessage");
 const setupBox = document.getElementById("setupBox");
 const deviceList = document.getElementById("deviceList");
@@ -287,10 +288,20 @@ platformOptions.addEventListener("click", event => {
   }
 });
 
+function closeDeviceSetup() {
+  deviceForm.classList.add("hidden");
+  addDeviceButton.classList.remove("hidden");
+  deviceMessage.classList.add("hidden");
+}
+
 addDeviceButton.addEventListener("click", () => {
-  deviceForm.classList.toggle("hidden");
-  if (!deviceForm.classList.contains("hidden")) deviceName.focus();
+  setupBox.classList.add("hidden");
+  deviceForm.classList.remove("hidden");
+  addDeviceButton.classList.add("hidden");
+  deviceName.focus();
 });
+
+cancelDeviceButton.addEventListener("click", closeDeviceSetup);
 
 createDeviceButton.addEventListener("click", async () => {
   const name = deviceName.value.trim();
@@ -310,6 +321,7 @@ createDeviceButton.addEventListener("click", async () => {
 
     deviceName.value = "";
     deviceForm.classList.add("hidden");
+    addDeviceButton.classList.remove("hidden");
     setupBox.textContent = "";
 
     const title = document.createElement("strong");
