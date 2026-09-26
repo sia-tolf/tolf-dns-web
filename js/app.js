@@ -283,6 +283,7 @@ function renderDevices(data) {
             delete setupBox.dataset.deviceId;
           }
           await loadDevices();
+          deviceMessageShow(t("revokeNotice"), true);
         } catch (error) {
           deviceMessageShow(error.message || t("revokeFailed"), true);
           revoke.disabled = false;
