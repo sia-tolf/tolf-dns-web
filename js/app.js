@@ -262,7 +262,16 @@ function renderDevices(data) {
     const name = document.createElement("strong");
     name.textContent = item.name || t("device");
     const meta = document.createElement("span");
-    meta.textContent = t("active");
+    const seen = item.lastSeenAt ? new Date(item.lastSeenAt) : null;
+    const lastSeen = seen && !Number.isNaN(seen.getTime())
+      ? new Intl.DateTimeFormat(
+          { en: "en-GB", ru: "ru-RU", lv: "lv-LV" }[currentLanguage] || "en-GB",
+          { dateStyle: "medium", timeStyle: "short" }
+        ).format(seen)
+      : null;
+    meta.textContent = lastSeen
+      ? t("lastDnsQuery").replace("{time}", lastSeen)
+      : t("accessIssued");
     info.append(name, meta);
     row.appendChild(info);
 
