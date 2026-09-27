@@ -30,7 +30,7 @@ const SMART_DNS_I18N = {
     defaultPolicy:"No special rule is needed for this domain.", exactRule:"A dedicated rule is active for this domain.", suffixRule:"A regional rule is active for this domain group.",
     noChange:"no routing change recommended", recommendation:"recommendation", samples:"samples", advantage:"measured advantage",
     routeLocal:"Main TOLF DNS", routeRussia:"Russian regional DNS", routeGlobal:"Global DNS route", resolverQuad9:"Quad9", resolverYandex:"Yandex DNS", resolverQuad9Ecs:"Quad9 ECS", noAddress:"No address", enterDomain:"Enter a domain name.", checking:"Checking…", checkFailed:"Unable to check this domain.",
-    noDevices:"No Smart DNS devices yet.", device:"Device", active:"Active", revoked:"Revoked", revoke:"Revoke",
+    noDevices:"No Smart DNS devices yet.", device:"Device", active:"Active", accessIssued:"Access issued", lastDnsQuery:"Last DNS query: {time}", revoked:"Revoked", revoke:"Revoke",
     revokeNotice:"Access revoked. The installed TOLF Smart DNS profile for this device no longer works. Remove the profile from this device.", revokeFailed:"Unable to revoke device.", loadDevicesFailed:"Unable to load devices.", enterDevice:"Enter a device name.",
     created:"Device created. Save the setup information below.", privateEndpoint:"This personal DoH address contains your credential. Keep it private.",
     installProfile:"Install iOS / iPadOS profile", createFailed:"Unable to create device."
@@ -66,7 +66,7 @@ const SMART_DNS_I18N = {
     defaultPolicy:"Для этого домена специальное правило не требуется.", exactRule:"Для этого домена действует отдельное правило.", suffixRule:"Для этой группы доменов действует региональное правило.",
     noChange:"изменение маршрута не рекомендуется", recommendation:"рекомендация", samples:"измерений", advantage:"преимущество по измерениям",
     routeLocal:"Основной DNS TOLF", routeRussia:"Российский региональный DNS", routeGlobal:"Глобальный DNS-маршрут", resolverQuad9:"Quad9", resolverYandex:"Yandex DNS", resolverQuad9Ecs:"Quad9 ECS", noAddress:"Нет адреса", enterDomain:"Введите доменное имя.", checking:"Проверяем…", checkFailed:"Не удалось проверить домен.",
-    noDevices:"Устройств Smart DNS пока нет.", device:"Устройство", active:"Активно", revoked:"Отозвано", revoke:"Отозвать",
+    noDevices:"Устройств Smart DNS пока нет.", device:"Устройство", active:"Активно", accessIssued:"Доступ выдан", lastDnsQuery:"Последний DNS-запрос: {time}", revoked:"Отозвано", revoke:"Отозвать",
     revokeNotice:"Доступ отозван. Установленный на этом устройстве профиль TOLF Smart DNS больше не работает. Удалите этот профиль с устройства.", revokeFailed:"Не удалось отозвать доступ устройства.", loadDevicesFailed:"Не удалось загрузить устройства.", enterDevice:"Введите название устройства.",
     created:"Устройство создано. Сохраните данные настройки ниже.", privateEndpoint:"Этот персональный адрес DoH содержит ваши учётные данные. Не передавайте его другим.",
     installProfile:"Установить профиль iOS / iPadOS", createFailed:"Не удалось создать настройку устройства."
@@ -102,7 +102,7 @@ const SMART_DNS_I18N = {
     defaultPolicy:"Šim domēnam īpašs noteikums nav nepieciešams.", exactRule:"Šim domēnam ir aktīvs atsevišķs noteikums.", suffixRule:"Šai domēnu grupai ir aktīvs reģionāls noteikums.",
     noChange:"maršruta maiņa nav ieteicama", recommendation:"ieteikums", samples:"mērījumi", advantage:"izmērītā priekšrocība",
     routeLocal:"TOLF pamata DNS", routeRussia:"Krievijas reģionālais DNS", routeGlobal:"Globālais DNS maršruts", resolverQuad9:"Quad9", resolverYandex:"Yandex DNS", resolverQuad9Ecs:"Quad9 ECS", noAddress:"Nav adreses", enterDomain:"Ievadiet domēna nosaukumu.", checking:"Pārbaudām…", checkFailed:"Neizdevās pārbaudīt domēnu.",
-    noDevices:"Smart DNS ierīču vēl nav.", device:"Ierīce", active:"Aktīvs", revoked:"Atsaukts", revoke:"Atsaukt",
+    noDevices:"Smart DNS ierīču vēl nav.", device:"Ierīce", active:"Aktīvs", accessIssued:"Piekļuve piešķirta", lastDnsQuery:"Pēdējais DNS pieprasījums: {time}", revoked:"Atsaukts", revoke:"Atsaukt",
     revokeNotice:"Piekļuve ir atsaukta. Šajā ierīcē instalētais TOLF Smart DNS profils vairs nedarbojas. Noņemiet šo profilu no ierīces.", revokeFailed:"Neizdevās atsaukt ierīces piekļuvi.", loadDevicesFailed:"Neizdevās ielādēt ierīces.", enterDevice:"Ievadiet ierīces nosaukumu.",
     created:"Ierīce izveidota. Saglabājiet zemāk redzamo iestatīšanas informāciju.", privateEndpoint:"Šajā personīgajā DoH adresē ir jūsu piekļuves dati. Neizpaudiet to citiem.",
     installProfile:"Instalēt iOS / iPadOS profilu", createFailed:"Neizdevās izveidot ierīces iestatījumu."
