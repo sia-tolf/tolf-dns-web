@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>TOLF DNS</title>
-  <link rel="stylesheet" href="css/styles.css?v=tolf-wordmark-spaced-20260927">
+  <link rel="stylesheet" href="css/styles.css?v=windows-setup-20260927-1">
   <link rel="stylesheet" href="css/tolf-buttons.css?v=buttons-4">
 </head>
 <body>
@@ -39,7 +39,7 @@
           <div class="platform-options" id="platformOptions">
             <button type="button" class="platform-option active" data-platform="ios">iPhone / iPad</button>
             <button type="button" class="platform-option" data-platform="android">Android</button>
-            <button type="button" class="platform-option" data-platform="windows">Windows</button>
+            <button type="button" class="platform-option" data-platform="windows">Windows 11</button>
             <button type="button" class="platform-option" data-platform="other" data-t="otherDevice">Other</button>
           </div>
         </div>
@@ -51,6 +51,7 @@
           <button id="cancelDeviceButton" class="secondary" type="button" data-t="cancelSetup">Cancel</button>
           <button id="createDeviceButton" class="primary" type="button" data-t="continueSetup">Continue</button>
         </div>
+        <button id="windowsRestoreButton" class="text-button hidden" type="button" data-t="windowsRestore">Restore Windows DNS settings</button>
       </div>
       <div id="deviceMessage" class="message hidden"></div>
       <div id="setupBox" class="setup-box hidden"></div>
@@ -115,7 +116,8 @@
   </main>
 
   <script src="js/api.js"></script>
-  <script src="js/i18n.js?v=dns-device-usage-20260927-1"></script>
-  <script src="js/app.js?v=dns-device-usage-20260927-1"></script>
+  <script src="js/i18n.js?v=windows-setup-20260927-1"></script>
+  <script src="js/windows.js?v=windows-setup-20260927-1"></script>
+  <script src="js/app.js?v=windows-setup-20260927-1"></script>
 </body>
 </html>
