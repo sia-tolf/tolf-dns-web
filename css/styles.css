@@ -636,3 +636,8 @@ html[data-tolf-ui="smartdns"] .copy-endpoint span::after{left:17px;top:15px;back
 .brand{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .brand-back{font-size:30px;line-height:1;font-weight:500;margin-right:1px;transform:translateY(-1px)}
 .brand img{display:block}
+
+/* TOLF wordmark: match the spaced brand treatment used across TOLF pages. */
+.header .brand > span:last-child {
+  letter-spacing: 0.14em;
+}
