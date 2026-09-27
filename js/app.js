@@ -28,6 +28,7 @@ const deviceMessage = document.getElementById("deviceMessage");
 const setupBox = document.getElementById("setupBox");
 const deviceList = document.getElementById("deviceList");
 const platformOptions = document.getElementById("platformOptions");
+const windowsRestoreButton = document.getElementById("windowsRestoreButton");
 let selectedPlatform = "ios";
 
 function routeLabel(route) {
@@ -322,13 +323,23 @@ platformOptions.addEventListener("click", event => {
   platformOptions.querySelectorAll("[data-platform]").forEach(item => {
     item.classList.toggle("active", item === button);
   });
+  windowsRestoreButton.classList.toggle("hidden", selectedPlatform !== "windows");
 
   if (!deviceName.value.trim()) {
     deviceName.placeholder =
       selectedPlatform === "ios" ? "iPad" :
       selectedPlatform === "android" ? "Android" :
-      selectedPlatform === "windows" ? "Windows PC" :
+      selectedPlatform === "windows" ? "Windows 11 PC" :
       t("device");
+  }
+});
+
+windowsRestoreButton.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(buildWindowsSmartDnsRestore());
+    deviceMessageShow(t("windowsRestoreCopied"));
+  } catch (_) {
+    deviceMessageShow(t("windowsCopyFailed"), true);
   }
 });
 
@@ -372,7 +383,8 @@ createDeviceButton.addEventListener("click", async () => {
     const title = document.createElement("strong");
     title.className = "setup-ready-title";
     title.textContent =
-      (selectedPlatform === "ios" ? t("profileReady") : t("manualReady"))
+      (selectedPlatform === "ios" ? t("profileReady") :
+       selectedPlatform === "windows" ? t("windowsReady") : t("manualReady"))
         .replace("{name}", data.device?.name || name);
     setupBox.appendChild(title);
 
@@ -419,6 +431,33 @@ createDeviceButton.addEventListener("click", async () => {
       expiry.textContent = t("profileLinkExpires");
       details.append(summary, manualText, endpointRow, note, expiry);
       setupBox.appendChild(details);
+    } else if (selectedPlatform === "windows") {
+      const script = buildWindowsSmartDnsSetup(data.dohUrl || "");
+      const instructions = document.createElement("p");
+      instructions.textContent = t("windowsSetupInstructions");
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "primary windows-setup-copy";
+      copy.textContent = t("windowsSetupCopy");
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(script);
+          copy.textContent = t("windowsSetupCopied");
+          setTimeout(() => { copy.textContent = t("windowsSetupCopy"); }, 2000);
+        } catch (_) {
+          deviceMessageShow(t("windowsCopyFailed"), true);
+        }
+      });
+      const windows10 = document.createElement("p");
+      windows10.textContent = t("windows10Notice");
+      const details = document.createElement("details");
+      details.className = "windows-setup-preview";
+      const summary = document.createElement("summary");
+      summary.textContent = t("windowsViewScript");
+      const preview = document.createElement("pre");
+      preview.textContent = script;
+      details.append(summary, preview);
+      setupBox.append(instructions, copy, windows10, details);
     } else {
       const manualText = document.createElement("p");
       manualText.textContent = t("manualSetupText");
